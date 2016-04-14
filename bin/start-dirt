@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /home/tidal/apps/Dirt/ && /home/tidal/apps/Dirt/dirt
