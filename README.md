@@ -29,6 +29,7 @@ $ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb tida1vm
 If you wish to login via ssh into the container, you'll need to start the service from within  
 ```bash  
 # service ssh start
+```
 
 Then you can login as usual (being `toor` the password)  
 ```bash  
