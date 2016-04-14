@@ -40,6 +40,8 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (find-file "~/livecode/init.tidal")
- "\C-c\C-s")
+
+(fset 'stidal
+      "\C-c\C-s")
 
 (execute-kbd-macro (symbol-function 'stidal))

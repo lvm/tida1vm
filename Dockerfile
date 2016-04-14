@@ -39,7 +39,7 @@ RUN apt-get update \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/bin \
     && echo 'root:toor' | chpasswd \
-    && sed -i 's,PermitRootLogin\sno,PermitRootLogin yes,' /etc/ssh/sshd_config
+    && sed -i 's,PermitRootLogin\s.*,PermitRootLogin yes,' /etc/ssh/sshd_config
 
 ###
 #
