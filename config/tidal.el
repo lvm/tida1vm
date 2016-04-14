@@ -68,6 +68,18 @@
   (tidal-send-string "(d9,t9) <- dirtSetters getNow")
   (tidal-send-string "(d10,t10) <- dirtSetters getNow")
   (tidal-send-string "let bps x = cps (x/2)")
+
+  ;; begin of hack
+  (tidal-send-string "import Sound.Tidal.MIDI.Output")
+  (tidal-send-string "import Sound.Tidal.MIDI.Control as C")
+
+  (tidal-send-string "import Sound.Tidal.VolcaBass as Q")
+  (tidal-send-string "import Sound.Tidal.VolcaBeats as B")
+  (tidal-send-string "import Sound.Tidal.SimpleSynth as S")
+
+  (tidal-send-string "[b,q,m1,m2,m3,m4,m5] <- (midiproxy 1 \"Midi Through Port-0\" [(beats {C.latency = 0.08}, 1),(bass {C.latency = 0.08}, 2),(keys {C.latency = 0.08}, 3),(keys {C.latency = 0.08}, 4),(keys {C.latency = 0.08}, 5),(keys {C.latency = 0.08}, 6),(keys {C.latency = 0.08}, 7)] >>= sequence)")
+  ;; end of hack
+
   (tidal-send-string "let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,d10]")
   (tidal-send-string "let solo = (>>) hush")
   (tidal-send-string ":set prompt \"tidal> \"")
@@ -81,6 +93,8 @@
     (split-window-vertically)
     (with-current-buffer tidal-buffer
       (let ((window (display-buffer (current-buffer))))
+        (select-window window) ;; resize debug
+        (shrink-window 6) ;; resize debug
 	(goto-char (point-max))
 	(save-selected-window
 	  (set-window-point window (point-max)))))))

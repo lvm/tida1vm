@@ -1,6 +1,0 @@
-#!/bin/sh
-tmux new-session -d 'emacs'
-tmux new-window 'start-jack'
-tmux new-window 'start-dirt'
-tmux new-window 'start-ffserver'
-tmux -2 attach-session -d

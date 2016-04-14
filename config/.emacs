@@ -31,7 +31,6 @@
 (setq scroll-step 1)
 (setq truncate-partial-width-windows nil)
 
-
 (add-hook 'isearch-update-post-hook 'redraw-display)
 
 (add-to-list 'load-path "~/.elisp")
@@ -39,3 +38,8 @@
 (require 'tidal)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(find-file "~/livecode/init.tidal")
+ "\C-c\C-s")
+
+(execute-kbd-macro (symbol-function 'stidal))

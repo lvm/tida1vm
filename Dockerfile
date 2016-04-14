@@ -11,31 +11,25 @@ ENV USER root
 ENV AUDIOGRP audio
 
 ENV HOME /home/tidal
-ENV PATH $PATH:$HOME/bin:$HOME/apps/Dirt
+ENV PATH $PATH:$HOME/bin
 
 ENV DEBIAN_FRONTEND noninteractive
 
 ###
 #
-# Setup backports repo
-#
-###
-COPY ["config/sources.list.d/backports.list", "/etc/apt/sources.list.d/backports.list"]
-
-###
-#
 # Install dependencies &&
 # Create home and set user groups
+# Note: Don't ever allow root over ssh.
+# Except in this particular case :-)
 #
 ###
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get install -yq jackd git ghc \
+    && apt-get install -yq ghc \
     emacs24-nox haskell-mode tmux \
-    ffmpeg lame libmp3lame0 \
     zlib1g-dev liblo7 libportmidi0 \
-    libportmidi-dev  libasound2-dev \
-    cabal-install \
+    libportmidi-dev libasound2-dev \
+    cabal-install openssh-server \
     --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
@@ -43,9 +37,9 @@ RUN apt-get update \
     && mkdir -p $HOME \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
-    && mkdir -p $HOME/repos \
-    && mkdir -p $HOME/apps/Dirt \
-    && mkdir -p $HOME/bin
+    && mkdir -p $HOME/bin \
+    && echo 'root:toor' | chpasswd \
+    && sed -i 's,PermitRootLogin\sno,PermitRootLogin yes,' /etc/ssh/sshd_config
 
 ###
 #
@@ -54,57 +48,35 @@ RUN apt-get update \
 ###
 COPY ["config/.tmux.conf", "$HOME/.tmux.conf"]
 COPY ["config/.emacs", "$HOME/.emacs"]
-COPY ["config/ffserver.conf", "$HOME/ffserver.conf"]
 COPY ["config/tidal.el", "$HOME/.elisp/tidal.el"]
 COPY ["tidal/init.tidal", "$HOME/livecode/init.tidal"]
 
 ###
 #
-# Install executables
+# ADD Tidal
+# Note: This step is optional.
+# `dot-cabal.tar.gz` contains the result of
+# `cabal fetch tidal-0.6 && cabal fetch tidal-midi-0.6`
 #
 ###
-COPY ["bin/start-1vm", "$HOME/bin/start-1vm"]
-COPY ["bin/start-dirt", "$HOME/bin/start-dirt"]
-COPY ["bin/start-ffserver", "$HOME/bin/start-ffserver"]
-COPY ["bin/start-jack", "$HOME/bin/start-jack"]
-COPY ["bin/ffmpeg-jack", "$HOME/bin/ffmpeg-jack"]
-COPY ["bin/dirt", "$HOME/apps/Dirt/dirt"]
-
-###
-#
-# ADD Tidal and samples
-# Note:
-# This step is optional.
-# `samples.tar.gz` contains custom samples, you might want to do
-# the same for your samples.
-# `dot-cabal.tar.gz` contains the result of `cabal fetch tidal-0.6`
-# to avoid downloading multiple times because i have a very bad
-# internet connection.
-#
-###
-# ADD ["samples/samples.tar.gz", "$HOME/apps/Dirt"]
 # ADD ["cabal/dot-cabal.tar.gz", "$HOME"]
 
 ###
 #
-# Instal Tidal &&
-# Fix perms
+# Install Tidal && Fix perms
 #
 ###
-RUN cabal update && cabal install tidal-0.6 \
-    && chmod +x $HOME/bin/start-1vm \
-    && chmod +x $HOME/bin/start-dirt \
-    && chmod +x $HOME/bin/start-ffserver \
-    && chmod +x $HOME/bin/start-jack \
-    && chmod +x $HOME/bin/ffmpeg-jack \
+RUN cabal update \
+    && cabal install tidal-0.6 \
+    && cabal install tidal-midi-0.6 \
     && chown -Rh $USER:$USER -- $HOME
 
 ###
 #
-# Expose ffserver ports
+# Expose sshd port
 #
 ###
-EXPOSE 8090
+EXPOSE 22
 
 ###
 #
