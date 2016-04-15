@@ -124,7 +124,7 @@ if __name__ == "__main__":
     if args.version:
         version()
     elif args.amsynth:
-        amsynth()
+        amsynth_connect()
     elif args.connect:
         connect(args.connect)
     elif args.disconnect:
