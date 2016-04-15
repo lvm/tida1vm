@@ -1,0 +1,52 @@
+-- lazy helpers
+let wf0 n = within(0, n)
+    sw f = sometimes(wf0 0.5 f)
+    sw' d h f = sometimes(within (d, h) f)
+    nm p = note $ toMIDI p
+    ---
+    ch :: Int -> [Int] -> Pattern Int ; ch n chord = listToPat [ch + n | ch <- chord]
+    --- q $ note (cho 48 "1 [~ 1] 1 1 " [0, 3, 7, 5])
+    cho n pat chord = preplace(1,1) pat $ listToPat [ch + n | ch <- chord]
+    --- q $ note (cho' 48 3 "1 [~ 1] 1 1 " [0, 3, 7, 5])
+    cho' n off pat chord = cho (n+off) pat chord
+    --- q $ slowcho [47, 45, 42] "[1 !] 1 1 1" [0, 3, 0, 3]
+    slowcho nlist pat chord = slowcat[note (cho n pat chord) | n <- nlist]
+    --- q $ slowcho' [47, 45, 42] 3 "[1 !] 1 1 1" [0, 3, 0, 3]
+    slowcho' nlist off pat chord = slowcat[note (cho' n off pat chord) | n <- nlist]
+    --  q $ slowcat[note (cho 60 "1 1 1" (rotate i [0,3,7,10])) | i <- [0..3]]
+    rotate :: Int -> [a] -> [a]
+    rotate _ [] = []
+    rotate n xs = zipWith const (drop n (cycle xs)) xs
+    -- q $ chrot [51, 48] "1 1 1 1" [0, 3, 5, 7] 3
+    chrot nlist pat chord = slowcat[slowcho nlist pat (rotate i chord) | i <- [0..((length chord)-1)]]
+    chrot' nlist off pat chord = slowcat[slowcho' nlist off pat (rotate i chord) | i <- [0..((length chord)-1)]]
+
+-- import System.Cmd -- for `espeak`
+
+-- -- espeak: msg, voice, amp, pitch, speed
+-- let espeak' m v a p s = system $ "espeak -v " ++ v ++ " -a " ++ a ++ " -p " ++ p ++ " -s " ++ s ++ " \"" ++ m ++ "\""
+--     shespeak' m v a p s = system $ "espeak -v " ++ v ++ "+f1 -a " ++ a ++ " -p " ++ p ++ " -s " ++ s ++ " \"" ++ m ++ "\""
+--     whisper' m v a p s = system $ "espeak -v " ++ v ++ "+whisper -a " ++ a ++ " -p " ++ p ++ " -s " ++ s ++ " \"" ++ m ++ "\""
+--     croak' m v a p s = system $ "espeak -v " ++ v ++ "+croak -a " ++ a ++ " -p " ++ p ++ " -s " ++ s ++ " \"" ++ m ++ "\""
+--     espeak m = espeak' m "en" "25" "50" "160"
+--     shespeak m = shespeak' m "en" "25" "50" "160"
+--     whisper m = whisper' m "en" "25" "50" "160"
+--     croak m = croak' m "en" "25" "50" "160"
+
+-- -- chords
+-- let minor = [0,3,7]
+--     major = [0,4,7]
+--     nine = [0,4,7,10,14]
+--     ninesus4 = [0,5,7,10,14]
+--     add9 = [0,4,7,14]
+--     madd9 = [0,3,7,14]
+--     maj9 = [0,4,7,11,14]
+--     m9 = [0,3,7,10,14]
+--     sus2 = [0,2,7]
+--     sus4 = [0,5,7]
+--     seven = [0,4,7,10]
+--     m7 = [0,3,7,10]
+--     eleven = [0,4,7,10,14,17]
+--     m11 = [0,3,7,10,14,17]
+--     thirteen = [0,4,7,10,14,21]
+--     m13 = [0,3,7,10,14,21]
