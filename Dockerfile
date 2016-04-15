@@ -50,6 +50,7 @@ COPY ["config/.tmux.conf", "$HOME/.tmux.conf"]
 COPY ["config/.emacs", "$HOME/.emacs"]
 COPY ["config/tidal.el", "$HOME/.elisp/tidal.el"]
 COPY ["tidal/init.tidal", "$HOME/livecode/init.tidal"]
+COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 
 ###
 #
