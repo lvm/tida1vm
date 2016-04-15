@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 """
-aconnect-midithru
+midithru-connect
 
-A simple helper to autoconnect instances of `amsynth` to
-`Midi Through` using `aconnect`.
+A simple helper to connect things to `Midi Through` using `aconnect`.
 
 All Python modules are available in the Standard Library.
 External dependencies:
@@ -20,7 +19,7 @@ import argparse
 import subprocess as sp
 import ConfigParser
 
-VERSION = "0.1"
+VERSION = "0.2"
 
 
 def version():
@@ -90,12 +89,17 @@ def amsynth_clients():
 
 
 def disconnect(a_id):
-    "disconnects an amsynth client off midi through"
+    "disconnects a client off midi through"
     aconnect_disconnect(a_id)
 
 
-def autoconnect():
-    "auto connects all amsynth clients to midi through"
+def connect(a_id):
+    "connects a client to midi through"
+    aconnect_connect(a_id)
+
+
+def amsynth_connect():
+    "auto connects all `amsynth` clients available"
     for a_id in amsynth_clients():
         aconnect_connect(a_id)
 
@@ -105,9 +109,12 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--version',
                         action="store_true",
                         help=version.__doc__)
-    parser.add_argument('-ac', '--autoconnect',
+    parser.add_argument('-a', '--amsynth',
                         action="store_true",
-                        help=autoconnect.__doc__)
+                        help=amsynth_connect.__doc__)
+    parser.add_argument('-c', '--connect',
+                        type=int,
+                        help=connect.__doc__)
     parser.add_argument('-d', '--disconnect',
                         type=int,
                         help=disconnect.__doc__)
@@ -116,8 +123,10 @@ if __name__ == "__main__":
 
     if args.version:
         version()
-    elif args.autoconnect:
-        autoconnect()
+    elif args.amsynth:
+        amsynth()
+    elif args.connect:
+        connect(args.connect)
     elif args.disconnect:
         disconnect(args.disconnect)
     else:
