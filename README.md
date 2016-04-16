@@ -8,14 +8,15 @@ Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/
 
 This container has configurations which are probably useful to me only, such as:
 
-* `tidebox` is a ready-to-use-solution and `tida1vm` **not**
+* `tidebox` uses tidal+dirt and `tida1vm` uses tidal+tidal-midi.
 * Runs `Debian Jessie` instead of `Fedora`
 * A particular midi-port <-> tidal-stream config
 * Uses `tmux` instead of `screen`
 * Doesn't use `Dirt`
-* Doesn't use `jack` directly (though the `host` will)
+* Doesn't use `jack` directly (though the `host` might)
 * Doesn't use `ffserver` (so I dropped dependencies on `ffmpeg`, `lame` and its libs)
-* Doesn't uses `supervisor`
+* Doesn't use `supervisor`
+* Doesn't use `sshd`
 
 ## Getting started
 
@@ -23,21 +24,42 @@ This container has configurations which are probably useful to me only, such as:
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
 $ docker build -t tida1vm .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb tida1vm
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm tida1vm
 ```
 
-If you wish to login via ssh into the container, you'll need to start the service from within  
-```bash  
-# service ssh start
+## MIDI Ports
+
+These are the MIDI ports I use on my physical and virtual synths, modify it as needed.  
+All of them are connected to ALSA "Midi Through".  
+
+| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont  | Notes              |
+| ------------| ------ | --------- | -------------- | ---------- | ------------------ |
+| Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |
+| Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |
+| Qsynth      | tr808  | 3         | VolcaBeats.hs  | FluidR3_GM | Bank 128 / Prog 25 |
+| Qsynth      | bass2  | 4         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 39   |
+| Qsynth      | piano  | 5         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 0    |
+| Qsynth      | string | 6         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 51   |
+| amsynth     | am1    | 7         | SimpleSynth.hs |            |                    |
+| amsynth     | am2    | 8         | SimpleSynth.hs |            |                    |
+| amsynth     | am3    | 9         | SimpleSynth.hs |            |                    |
+
+### midithru-connect
+
+There's a small script in the `helper` directory called `midithru-connect` which connects clients to "Midi Through".
+
+```bash
+usage: midithru-connect [-h] [-v] [-a] [-c CONNECT] [-d DISCONNECT]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         shows the current version
+  -a, --amsynth         auto connects all `amsynth` clients available
+  -c CONNECT, --connect CONNECT
+                        connects a client to midi through
+  -d DISCONNECT, --disconnect DISCONNECT
+                        disconnects a client off midi through
 ```
-
-Then you can login as usual (being `toor` the password)  
-```bash  
-$ ssh root@172.17.0.123
-```
-
-Note: to find the container's IP Address you can do so with `docker inspect *fancy_container_name*`
-
 
 ## References
 
@@ -45,4 +67,7 @@ Note: to find the container's IP Address you can do so with `docker inspect *fan
 - [Tidal](http://tidal.lurk.org)
 - [GNU Emacs](https://www.gnu.org/software/emacs/)
 - [tmux](https://tmux.github.io/)
+- [FluidSynth](http://www.fluidsynth.org/)
+- [Qsynth](http://qsynth.sourceforge.net/qsynth-index.html)
+- [amsynth](https://amsynth.github.io/)
 - [TOPLAP The Home of Live Coding](http://toplap.org/)
