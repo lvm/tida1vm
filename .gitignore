@@ -1,3 +1,5 @@
 cache/*.tar.gz
 samples/*.tar.gz
+Dockerfile.local
+Dockerfile.release
 
