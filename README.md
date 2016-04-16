@@ -36,13 +36,22 @@ All of them are connected to ALSA "Midi Through".
 | ------------| ------ | --------- | -------------- | ---------- | ------------------ |
 | Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |
 | Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |
-| Qsynth      | tr808  | 3         | VolcaBeats.hs  | FluidR3_GM | Bank 128 / Prog 25 |
+| Qsynth      | tr808  | 3         | Fake808.hs     | FluidR3_GM | Bank 128 / Prog 25 |
 | Qsynth      | bass2  | 4         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 39   |
 | Qsynth      | piano  | 5         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 0    |
 | Qsynth      | string | 6         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 51   |
 | amsynth     | am1    | 7         | SimpleSynth.hs |            |                    |
 | amsynth     | am2    | 8         | SimpleSynth.hs |            |                    |
 | amsynth     | am3    | 9         | SimpleSynth.hs |            |                    |
+
+### Custom tidal-midi Synths
+
+In the directory `tidal-midi` you can custom synths written for this setup.
+
+#### Fake808.hs
+
+This is based on `VolcaBeats.hs` but has more mappings to different "notes".  
+It uses `drum8` instead of `drum` (which still can be used but won't play tr808 notes).
 
 ### midithru-connect
 
