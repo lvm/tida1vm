@@ -8,7 +8,6 @@ MAINTAINER Mauro <mauro@sdf.org>
 ###
 ENV LANG C.UTF-8
 ENV USER root
-ENV AUDIOGRP audio
 
 ENV HOME /home/tidal
 ENV PATH $PATH:$HOME/bin
@@ -18,9 +17,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ###
 #
 # Install dependencies &&
-# Create home and set user groups
-# Note: Don't ever allow root over ssh.
-# Except in this particular case :-)
+# Create home and user dirs
 #
 ###
 RUN apt-get update \
@@ -29,15 +26,15 @@ RUN apt-get update \
     emacs24-nox haskell-mode tmux \
     zlib1g-dev liblo7 libportmidi0 \
     libportmidi-dev libasound2-dev \
-    cabal-install \
+    cabal-install wget unzip \
     --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && adduser $USER $AUDIOGRP \
     && mkdir -p $HOME \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
-    && mkdir -p $HOME/bin
+    && mkdir -p $HOME/bin \
+    && wget https://github.com/lvm/tidal-midi/archive/0.6-dev.zip -O $HOME/0.6-dev.zip
 
 ###
 #
@@ -61,7 +58,14 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 RUN cabal update \
     && cabal install tidal-0.6 \
     && cabal install tidal-midi-0.6 \
+    && unzip $HOME/0.6-dev.zip -d $HOME \
+    && cd $HOME/tidal-midi-0.6-dev \
+    && cabal configure && cabal build && \
+    && cabal install \
+    && cd $HOME \
+    && rm -fr $HOME/tidal-midi-0.6-dev \
     && chown -Rh $USER:$USER -- $HOME
+
 
 ###
 #
