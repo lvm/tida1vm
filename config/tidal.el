@@ -72,6 +72,7 @@
   (tidal-send-string "import Sound.Tidal.VolcaBass as Q")
   (tidal-send-string "import Sound.Tidal.VolcaBeats as B")
   (tidal-send-string "import Sound.Tidal.SimpleSynth as S")
+  (tidal-send-string "import Sound.Tidal.Fake808 as F")
 
   (tidal-send-string "[beats,bass,tr808,bass2,piano,string,am1,am2,am3] <- (midiproxy 1 \"Midi Through Port-0\" [(beats {C.latency = 0.08}, 1),(bass {C.latency = 0.08}, 2),(fake808 {C.latency = 0.08}, 3),(keys {C.latency = 0.08}, 4),(keys {C.latency = 0.08}, 5),(keys {C.latency = 0.08}, 6),(keys {C.latency = 0.08}, 7),(keys {C.latency = 0.08}, 8),(keys {C.latency = 0.08}, 9)] >>= sequence)")
   ;; end of hack
