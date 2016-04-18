@@ -60,7 +60,8 @@ RUN cabal update \
     && cabal install tidal-midi-0.6 \
     && unzip $HOME/0.6-dev.zip -d $HOME \
     && cd $HOME/tidal-midi-0.6-dev \
-    && cabal configure && cabal build && \
+    && cabal configure \
+    && cabal build \
     && cabal install \
     && cd $HOME \
     && rm -fr $HOME/tidal-midi-0.6-dev \
