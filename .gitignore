@@ -1,5 +1,5 @@
 cache/*.tar.gz
-samples/*.tar.gz
+cache/*.zip
 Dockerfile.local
 Dockerfile.release
 
