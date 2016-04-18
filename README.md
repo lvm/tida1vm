@@ -47,6 +47,7 @@ All of them are connected to ALSA "Midi Through".
 ### Custom tidal-midi Synths
 
 In the directory `tidal-midi` you can custom synths written for this setup.
+To ease the setup, I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi).
 
 #### Fake808.hs
 
