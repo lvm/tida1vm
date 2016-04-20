@@ -34,7 +34,7 @@ RUN apt-get update \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/bin \
-    && wget https://github.com/lvm/tidal-midi/archive/0.6-dev.zip -O $HOME/0.6-dev.zip
+    && wget --no-check-certificate https://github.com/lvm/tidal-midi/archive/0.6-dev.zip -O $HOME/0.6-dev.zip
 
 ###
 #
@@ -57,7 +57,7 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 ###
 RUN cabal update \
     && cabal install tidal-0.6 \
-    && cabal install tidal-midi-0.6 \
+    && cabal install tidal-midi \
     && unzip $HOME/0.6-dev.zip -d $HOME \
     && cd $HOME/tidal-midi-0.6-dev \
     && cabal configure \

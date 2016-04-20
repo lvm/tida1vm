@@ -64,7 +64,7 @@ usage: midithru-connect [-h] [-v] [-a] [-c CONNECT] [-d DISCONNECT]
 optional arguments:
   -h, --help            show this help message and exit
   -v, --version         shows the current version
-  -a, --amsynth         auto connects all `amsynth` clients available
+  -a, --all             auto connects all clients available
   -c CONNECT, --connect CONNECT
                         connects a client to midi through
   -d DISCONNECT, --disconnect DISCONNECT
