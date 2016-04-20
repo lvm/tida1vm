@@ -44,9 +44,9 @@ def is_int(n):
 
 def aconnect_o(grep=None):
     if grep:
-        grep = "| grep -i client | grep -i '{}'".format(grep)
+        grep = " | grep -i '{}'".format(grep)
 
-    return sp.check_output("aconnect -o {}".format(grep), shell=True)
+    return sp.check_output("aconnect -o | grep -i client {}".format(grep or ""), shell=True)
 
 
 def aconnect_disconnect(client=None):
@@ -76,16 +76,18 @@ def midithru_client():
     return mt_id
 
 
-def amsynth_clients():
+def all_clients():
     "Returns a list of amsynth clients ids"
     ac_ids = []
-    output = aconnect_o("amsynth")
+    mt_id = midithru_client()
+    output = aconnect_o()
     output = filter(lambda l: l, output.split("\n"))
     if output:
         for client in output:
-            ac_ids += filter(lambda m: is_int(m), re.findall("\d+", client))
+            ac_ids += filter(lambda m: is_int(m), re.findall("(\d+):", client))
 
-    return map(lambda id: int(id), ac_ids)
+    return filter(lambda id: id > 0 and int(id) != int(mt_id),
+                  map(lambda id: int(id), ac_ids))
 
 
 def disconnect(a_id):
@@ -98,10 +100,10 @@ def connect(a_id):
     aconnect_connect(a_id)
 
 
-def amsynth_connect():
-    "auto connects all `amsynth` clients available"
-    for a_id in amsynth_clients():
-        aconnect_connect(a_id)
+def connect_all():
+    "auto connects all clients available"
+    for a_id in all_clients():
+        connect(a_id)
 
 
 if __name__ == "__main__":
@@ -109,9 +111,9 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--version',
                         action="store_true",
                         help=version.__doc__)
-    parser.add_argument('-a', '--amsynth',
+    parser.add_argument('-a', '--all',
                         action="store_true",
-                        help=amsynth_connect.__doc__)
+                        help=connect_all.__doc__)
     parser.add_argument('-c', '--connect',
                         type=int,
                         help=connect.__doc__)
@@ -123,8 +125,8 @@ if __name__ == "__main__":
 
     if args.version:
         version()
-    elif args.amsynth:
-        amsynth_connect()
+    elif args.all:
+        connect_all()
     elif args.connect:
         connect(args.connect)
     elif args.disconnect:
