@@ -70,6 +70,10 @@ optional arguments:
   -d DISCONNECT, --disconnect DISCONNECT
                         disconnects a client off midi through
 ```
+## Extra docs
+
+For more info, take a look at the [wiki](https://github.com/lvm/tida1vm/wiki).
+
 
 ## References
 
