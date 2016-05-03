@@ -63,7 +63,7 @@ something $ n $ tom "c d e f"
 
 ### Custom `tidal-midi` Synths
 
-I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi), removing most of the synths (which I don't have) and added GM1Drums.hs which uses GM1 standards for percussion in GM soundfonts.
+I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi), removing most of the synths (which I don't have) and added `GM1Drums.hs` configured after GM1 standards for percussion in GM soundfonts and uses `gdrum` (works with `drum` too, but won't recognize all GM1 values).
 
 ### midithru-connect
 
