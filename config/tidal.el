@@ -72,12 +72,12 @@
   (tidal-send-string "import Sound.Tidal.VolcaBass as Q")
   (tidal-send-string "import Sound.Tidal.VolcaBeats as B")
   (tidal-send-string "import Sound.Tidal.SimpleSynth as S")
-  (tidal-send-string "import Sound.Tidal.Fake808 as F")
+  (tidal-send-string "import Sound.Tidal.GM1Drums as D")
 
-  (tidal-send-string "[beats,bass,tr808,bass2,piano,string,am1,am2,am3] <- (midiproxy 1 \"Midi Through Port-0\" [(beats {C.latency = 0.08}, 1),(bass {C.latency = 0.08}, 2),(fake808 {C.latency = 0.08}, 3),(keys {C.latency = 0.08}, 4),(keys {C.latency = 0.08}, 5),(keys {C.latency = 0.08}, 6),(keys {C.latency = 0.08}, 7),(keys {C.latency = 0.08}, 8),(keys {C.latency = 0.08}, 9)] >>= sequence)")
+  (tidal-send-string "[beats,bass,drums,midi4,midi5,midi6,midi7,midi8,midi9,midi10,midi11,midi12,midi13,midi14,midi15,midi16] <- (midiproxy 1 \"Midi Through Port-0\" [(beats {C.latency = 0.08}, 1),(bass {C.latency = 0.08}, 2),(gm1drum {C.latency = 0.08}, 3),(keys {C.latency = 0.08}, 4),(keys {C.latency = 0.08}, 5),(keys {C.latency = 0.08}, 6),(keys {C.latency = 0.08}, 7),(keys {C.latency = 0.08}, 8),(keys {C.latency = 0.08}, 9),(keys {C.latency = 0.08}, 10),(keys {C.latency = 0.08}, 11),(keys {C.latency = 0.08}, 12),(keys {C.latency = 0.08}, 13),(keys {C.latency = 0.08}, 14),(keys {C.latency = 0.08}, 15),(keys {C.latency = 0.08}, 16)] >>= sequence)")
   ;; end of hack
 
-  (tidal-send-string "let hush = mapM_ ($ silence) [beats,bass,tr808,bass2,piano,string,am1,am2,am3]")
+  (tidal-send-string "let hush = mapM_ ($ silence) [beats,bass,drums,midi4,midi5,midi6,midi7,midi8,midi9,midi10,midi11,midi12,midi13,midi14,midi15,midi16]")
   (tidal-send-string "let solo = (>>) hush")
   (tidal-send-string ":set prompt \"tidal> \"")
 )
