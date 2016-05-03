@@ -17,9 +17,15 @@ export LANG=C.UTF-8
 export HOME=/home/tidal
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
-export PS1="\[\e[37;40m\][\[\e[m\]\[\e[31;40m\]tida1vm\[\e[m\]\[\e[37;40m\]:\[\e[m\]\[\e[37;40m\]\w\[\e[m\]\[\e[37;40m\]]\[\e[m\]\[\e[37;40m\] \[\e[m\]\[\e[37;40m\]\\$\[\e[m\]\[\e[37;40m\] \[\e[m\] "
+export PS1="[tida1vm:\w] \\$ "
 export PS2='... '
 
 alias emacs="TERM=xterm-256color emacs"
+
+bind "set completion-ignore-case on" # This ignores case in bash completion
+bind "set bell-style none" # Turn off bell
+bind "set show-all-if-ambiguous On" # Single tab completion
+bind Space:magic-space #auto expand ! variants upon space
+shopt -s cdspell # correct small spelling errors automagically
 
 [ -f $HOME/.bash_profile ] && source $HOME/.bash_profile
