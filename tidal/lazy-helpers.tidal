@@ -22,19 +22,36 @@ let n = S.note
     chrot' nlist off pat chord = slowcat[slowcho' nlist off pat (rotate i chord) | i <- [0..((length chord)-1)]]
 
 -- chords
-let minor = [0,3,7]
-    major = [0,4,7]
-    nine = [0,4,7,10,14]
-    ninesus4 = [0,5,7,10,14]
-    add9 = [0,4,7,14]
-    madd9 = [0,3,7,14]
-    maj9 = [0,4,7,11,14]
-    m9 = [0,3,7,10,14]
-    sus2 = [0,2,7]
-    sus4 = [0,5,7]
-    seven = [0,4,7,10]
-    m7 = [0,3,7,10]
-    eleven = [0,4,7,10,14,17]
-    m11 = [0,3,7,10,14,17]
-    thirteen = [0,4,7,10,14,21]
-    m13 = [0,3,7,10,14,21]
+let minor :: Pattern Int
+    minor = listToPat [0,3,7]
+    major :: Pattern Int
+    major = listToPat [0,4,7]
+    nine :: Pattern Int
+    nine = listToPat [0,4,7,10,14]
+    ninesus4 :: Pattern Int
+    ninesus4 = listToPat [0,5,7,10,14]
+    add9 :: Pattern Int
+    add9 = listToPat [0,4,7,14]
+    madd9 :: Pattern Int
+    madd9 = listToPat [0,3,7,14]
+    maj9 :: Pattern Int
+    maj9 = listToPat [0,4,7,11,14]
+    m9 :: Pattern Int
+    m9 = listToPat [0,3,7,10,14]
+    sus2 :: Pattern Int
+    sus2 = listToPat [0,2,7]
+    sus4 :: Pattern Int
+    sus4 = listToPat [0,5,7]
+    seven :: Pattern Int
+    seven = listToPat [0,4,7,10]
+    m7 :: Pattern Int
+    m7 = listToPat [0,3,7,10]
+    eleven :: Pattern Int
+    eleven = listToPat [0,4,7,10,14,17]
+    m11 :: Pattern Int
+    m11 = listToPat [0,3,7,10,14,17]
+    thirteen :: Pattern Int
+    thirteen = listToPat [0,4,7,10,14,21]
+    m13 :: Pattern Int
+    m13 = listToPat [0,3,7,10,14,21]
+
