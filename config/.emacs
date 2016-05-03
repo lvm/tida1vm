@@ -46,4 +46,4 @@
 
 (execute-kbd-macro (symbol-function 'stidal))
 
-(load-theme 'tango-dark t)
+(load-theme 'wombat t)
