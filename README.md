@@ -29,30 +29,41 @@ $ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm t
 
 ## MIDI Ports
 
-These are the MIDI ports I use on my physical and virtual synths, modify it as needed.  
 All of them are connected to ALSA "Midi Through".  
 
-| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont  | Notes              |
-| ------------| ------ | --------- | -------------- | ---------- | ------------------ |
-| Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |
-| Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |
-| Qsynth      | tr808  | 3         | Fake808.hs     | FluidR3_GM | Bank 128 / Prog 25 |
-| Qsynth      | bass2  | 4         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 39   |
-| Qsynth      | piano  | 5         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 0    |
-| Qsynth      | string | 6         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 51   |
-| amsynth     | am1    | 7         | SimpleSynth.hs |            |                    |
-| amsynth     | am2    | 8         | SimpleSynth.hs |            |                    |
-| amsynth     | am3    | 9         | SimpleSynth.hs |            |                    |
+| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont  | Notes              | Alias  |
+| ------------| ------ | --------- | -------------- | ---------- | ------------------ | ------ |
+| Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |        |
+| Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |        |
+| Qsynth      | drums  | 3         | GM1Drums.hs    | FluidR3_GM | Bank 128 / Prog 25 | tr808  |
+| {Q,am}synth | midi4  | 4         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 39   | bass2  |
+| {Q,am}synth | midi5  | 5         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 0    | piano  |
+| {Q,am}synth | midi6  | 6         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 51   | string |
+| {Q,am}synth | midi7  | 7         | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi8  | 8         | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi9  | 9         | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi10 | 10        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi11 | 11        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi12 | 12        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi13 | 13        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi14 | 14        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi15 | 15        | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi16 | 16        | SimpleSynth.hs |            |                    |        |
 
-### Custom tidal-midi Synths
+They used to be named based on a particular use, now it's more generic.  
+In order to alias any stream, just write in your `.tidal` file, something like:
 
-In the directory `tidal-midi` you can custom synths written for this setup.
-To ease the setup, I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi).
+```
+let something = midi4
 
-#### Fake808.hs
+-- now it can be used as:
 
-This is based on `VolcaBeats.hs` but has more mappings to different "notes".  
-It uses `drum8` instead of `drum` (which still can be used but won't play tr808 notes).
+something $ n $ tom "c d e f"
+```
+
+### Custom `tidal-midi` Synths
+
+I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi), removing most of the synths (which I don't have) and added `GM1Drums.hs` configured after GM1 standards for percussion in GM soundfonts and uses `gdrum` (works with `drum` too, but won't recognize all GM1 values).
 
 ### midithru-connect
 
@@ -84,4 +95,5 @@ For more info, take a look at the [wiki](https://github.com/lvm/tida1vm/wiki).
 - [FluidSynth](http://www.fluidsynth.org/)
 - [Qsynth](http://qsynth.sourceforge.net/qsynth-index.html)
 - [amsynth](https://amsynth.github.io/)
+- [GM Level 1 Sound Set](https://www.midi.org/specifications/item/gm-level-1-sound-set)
 - [TOPLAP The Home of Live Coding](http://toplap.org/)
