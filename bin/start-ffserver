@@ -1,2 +1,0 @@
-#!/bin/sh
-ffserver -f /home/tidal/ffserver.conf
