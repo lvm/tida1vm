@@ -1,0 +1,4 @@
+#!/bin/sh
+/usr/bin/ffmpeg -f jack -i ffmpeg -ac 2 http://localhost:8090/feed1.ffm &
+sleep 5 && /usr/bin/jack_connect dirt:output_0 ffmpeg:input_1 &
+sleep 5 && /usr/bin/jack_connect dirt:output_1 ffmpeg:input_2 &
