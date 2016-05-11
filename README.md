@@ -1,23 +1,6 @@
 # tida1vm
 
-Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/tidebox)
-
 > A complete Tidal musical live coding and audio streaming environment inside Docker
-
-## Why not Tidebox?
-
-This container has configurations which are probably useful to me only, such as:
-
-* `tidebox` uses tidal+dirt and `tida1vm` uses tidal+tidal-midi.
-* Runs `Debian Jessie` instead of `Fedora`
-* A particular midi-port <-> tidal-stream config
-* Uses `tmux` instead of `screen`
-* Doesn't use `Dirt`
-* Doesn't use `jack` directly (though the `host` might)
-* Doesn't use `ffserver` (so I dropped dependencies on `ffmpeg`, `lame` and its libs)
-* Doesn't use `supervisor`
-* Doesn't use `sshd`
-
 
 ## Getting started
 
@@ -100,6 +83,19 @@ optional arguments:
 
 For more info, take a look at the [wiki](https://github.com/lvm/tida1vm/wiki).
 
+## What's the difference with [Tidebox](https://github.com/DoubleDensity/tidebox)?
+
+This container has configurations which are probably useful to me only, such as:
+
+* `tidebox` uses tidal+dirt and `tida1vm` uses tidal+tidal-midi.
+* Runs `Debian Jessie` instead of `Fedora`
+* A particular midi-port <-> tidal-stream config
+* Uses `tmux` instead of `screen`
+* Doesn't use `Dirt`
+* Doesn't use `jack` directly (though the `host` might)
+* Doesn't use `ffserver` (so I dropped dependencies on `ffmpeg`, `lame` and its libs)
+* Doesn't use `supervisor`
+* Doesn't use `sshd`
 
 ## References
 
