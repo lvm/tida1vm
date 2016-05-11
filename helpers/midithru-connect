@@ -1,0 +1,135 @@
+#!/usr/bin/env python
+"""
+midithru-connect
+
+A simple helper to connect things to `Midi Through` using `aconnect`.
+
+All Python modules are available in the Standard Library.
+External dependencies:
+* aconnect
+* amsynth
+* grep
+* python << 2.8
+"""
+
+import os
+import re
+import shlex
+import argparse
+import subprocess as sp
+import ConfigParser
+
+VERSION = "0.2"
+
+
+def version():
+    "shows the current version"
+    print VERSION
+
+
+def show_help():
+    "shows the basic usage"
+    print "{} -h".format(os.path.basename(__file__))
+
+
+def is_int(n):
+    is_it = True
+    try:
+        int(n)
+    except:
+        is_it = False
+
+    return is_it
+
+
+def aconnect_o(grep=None):
+    if grep:
+        grep = " | grep -i '{}'".format(grep)
+
+    return sp.check_output("aconnect -o | grep -i client {}".format(grep or ""), shell=True)
+
+
+def aconnect_disconnect(client=None):
+    if client:
+        cmd = "aconnect -d {0} {1}".format(midithru_client(), client)
+        sp.call(shlex.split(cmd))
+
+
+def aconnect_connect(client=None):
+    if client:
+        cmd = "aconnect {0} {1}".format(midithru_client(), client)
+        sp.call(shlex.split(cmd))
+
+
+def midithru_client():
+    "Returns a the id of the midi through client"
+    mt_id = 0
+    output = aconnect_o("midi through")
+    output = filter(lambda l: l, output.split("\n"))
+    if output:
+        for client in output:
+            mt_id = filter(lambda m: is_int(m), re.findall("\d+", client))
+
+    if mt_id and isinstance(mt_id, list):
+        mt_id = mt_id[0]
+
+    return mt_id
+
+
+def all_clients():
+    "Returns a list of amsynth clients ids"
+    ac_ids = []
+    mt_id = midithru_client()
+    output = aconnect_o()
+    output = filter(lambda l: l, output.split("\n"))
+    if output:
+        for client in output:
+            ac_ids += filter(lambda m: is_int(m), re.findall("(\d+):", client))
+
+    return filter(lambda id: id > 0 and int(id) != int(mt_id),
+                  map(lambda id: int(id), ac_ids))
+
+
+def disconnect(a_id):
+    "disconnects a client off midi through"
+    aconnect_disconnect(a_id)
+
+
+def connect(a_id):
+    "connects a client to midi through"
+    aconnect_connect(a_id)
+
+
+def connect_all():
+    "auto connects all clients available"
+    for a_id in all_clients():
+        connect(a_id)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--version',
+                        action="store_true",
+                        help=version.__doc__)
+    parser.add_argument('-a', '--all',
+                        action="store_true",
+                        help=connect_all.__doc__)
+    parser.add_argument('-c', '--connect',
+                        type=int,
+                        help=connect.__doc__)
+    parser.add_argument('-d', '--disconnect',
+                        type=int,
+                        help=disconnect.__doc__)
+
+    args = parser.parse_args()
+
+    if args.version:
+        version()
+    elif args.all:
+        connect_all()
+    elif args.connect:
+        connect(args.connect)
+    elif args.disconnect:
+        disconnect(args.disconnect)
+    else:
+        show_help()
