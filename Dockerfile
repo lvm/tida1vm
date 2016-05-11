@@ -14,6 +14,14 @@ ENV PATH $PATH:$HOME/bin
 
 ENV DEBIAN_FRONTEND noninteractive
 
+####
+#
+# Add backports.
+# `ghc` is kinda old in Jessie, luckily someone backported it.
+#
+##
+COPY ["config/etc/apt/sources.list.d/backports.list", "/etc/apt/sources.list.d/backports.list"]
+
 ###
 #
 # Install dependencies &&
@@ -22,19 +30,20 @@ ENV DEBIAN_FRONTEND noninteractive
 ###
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get install -yq ghc \
+    && apt-get install -yq \
     emacs24-nox haskell-mode tmux \
     zlib1g-dev liblo7 libportmidi0 \
     libportmidi-dev libasound2-dev \
     cabal-install wget unzip \
     --no-install-recommends \
+    && apt-get -t jessie-backports ghc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p $HOME \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/bin \
-    && wget --no-check-certificate https://github.com/lvm/tidal-midi/archive/0.6-dev.zip -O $HOME/0.6-dev.zip
+    && wget --no-check-certificate https://github.com/lvm/tidal-midi-fluidsynth/archive/master.zip -O $HOME/tidal-midi-fluidsynth.zip
 
 ###
 #
@@ -56,15 +65,14 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 #
 ###
 RUN cabal update \
-    && cabal install tidal-0.6 \
-    && cabal install tidal-midi \
-    && unzip $HOME/0.6-dev.zip -d $HOME \
-    && cd $HOME/tidal-midi-0.6-dev \
+    && cabal install tidal \
+    && unzip $HOME/tidal-midi-fluidsynth.zip -d $HOME \
+    && cd $HOME/tidal-midi-fluidsynth-master \
     && cabal configure \
     && cabal build \
     && cabal install \
     && cd $HOME \
-    && rm -fr $HOME/tidal-midi-0.6-dev \
+    && rm -fr $HOME/tidal-midi-0.6-dev $HOME/tidal-midi-fluidsynth.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
@@ -75,4 +83,3 @@ RUN cabal update \
 ###
 USER $USER
 WORKDIR $HOME
-
