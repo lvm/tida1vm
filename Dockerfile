@@ -36,7 +36,7 @@ RUN apt-get update \
     libportmidi-dev libasound2-dev \
     cabal-install wget unzip \
     --no-install-recommends \
-    && apt-get install -t jessie-backports ghc \
+    && apt-get install -yt jessie-backports ghc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p $HOME \
