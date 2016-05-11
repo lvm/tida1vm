@@ -1,5 +1,6 @@
 cache/*.tar.gz
 cache/*.zip
+cache/*
 Dockerfile.local
 Dockerfile.release
 
