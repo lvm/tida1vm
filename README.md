@@ -8,9 +8,9 @@
 
 Currently, there's a branch for:  
 
-* [TidalCycles 0.6 + MIDI](https://github.com/lvm/tida1vm/tree/0.6):  [Download](https://github.com/lvm/tida1vm/archive/0.6.zip)
-* [TidalCycles 0.7 + MIDI](https://github.com/lvm/tida1vm/tree/0.7):  [Download](https://github.com/lvm/tida1vm/archive/0.7.zip)  
-* [TidalCycles 0.7 + Dirt](https://github.com/lvm/tida1vm/tree/dirt):  [Download](https://github.com/lvm/tida1vm/archive/dirt.zip)
+* [TidalCycles 0.6 + MIDI](https://github.com/lvm/tida1vm/tree/0.6):  :link:  [Download](https://github.com/lvm/tida1vm/archive/0.6.zip)
+* [TidalCycles 0.7 + MIDI](https://github.com/lvm/tida1vm/tree/0.7):  :link:  [Download](https://github.com/lvm/tida1vm/archive/0.7.zip)  
+* [TidalCycles 0.7 + Dirt](https://github.com/lvm/tida1vm/tree/dirt):  :link:  [Download](https://github.com/lvm/tida1vm/archive/dirt.zip)
 
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
