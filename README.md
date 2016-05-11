@@ -4,27 +4,14 @@ Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/
 
 > A complete Tidal musical live coding and audio streaming environment inside Docker
 
-## Why not Tidebox?
-
-This container has configurations which are probably useful to me only, such as:
-
-* `tidebox` uses tidal+dirt and `tida1vm` uses tidal+tidal-midi.
-* Runs `Debian Jessie` instead of `Fedora`
-* A particular midi-port <-> tidal-stream config
-* Uses `tmux` instead of `screen`
-* Doesn't use `Dirt`
-* Doesn't use `jack` directly (though the `host` might)
-* Doesn't use `ffserver` (so I dropped dependencies on `ffmpeg`, `lame` and its libs)
-* Doesn't use `supervisor`
-* Doesn't use `sshd`
-
 ## Getting started
 
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ docker build -t tida1vm .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm tida1vm
+$ git checkout 0.7
+$ docker build -t tida1vm-0.7 .
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name 1vm7 tida1vm-0.7
 ```
 
 ## MIDI Ports
@@ -35,10 +22,10 @@ All of them are connected to ALSA "Midi Through".
 | ------------| ------ | --------- | -------------- | ---------- | ------------------ | ------ |
 | Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |        |
 | Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |        |
-| Qsynth      | drums  | 3         | GM1Drums.hs    | FluidR3_GM | Bank 128 / Prog 25 | tr808  |
-| {Q,am}synth | midi4  | 4         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 39   | bass2  |
-| {Q,am}synth | midi5  | 5         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 0    | piano  |
-| {Q,am}synth | midi6  | 6         | SimpleSynth.hs | FluidR3_GM | Bank 0 / Prog 51   | string |
+| Qsynth      | drums  | 3         | GM1Drums.hs    | FluidR3_GM | Bank 128 / Prog 25 |        |
+| {Q,am}synth | midi4  | 4         | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi5  | 5         | SimpleSynth.hs |            |                    |        |
+| {Q,am}synth | midi6  | 6         | SimpleSynth.hs |            |                    |        |
 | {Q,am}synth | midi7  | 7         | SimpleSynth.hs |            |                    |        |
 | {Q,am}synth | midi8  | 8         | SimpleSynth.hs |            |                    |        |
 | {Q,am}synth | midi9  | 9         | SimpleSynth.hs |            |                    |        |
@@ -63,7 +50,7 @@ something $ n $ tom "c d e f"
 
 ### Custom `tidal-midi` Synths
 
-I forked the `tidal-midi` [here](https://github.com/lvm/tidal-midi), removing most of the synths (which I don't have) and added `GM1Drums.hs` configured after GM1 standards for percussion in GM soundfonts and uses `gdrum` (works with `drum` too, but won't recognize all GM1 values).
+For `0.7`, since it has MIDI integrated, I created a repo for FluidSynth [here](https://github.com/lvm/tidal-midi-fluidsynth) with two exposed modules: `GMDrums.hs` and `GMInst.hs`, one for Drums and other for the rest of the instruments.
 
 ### midithru-connect
 
