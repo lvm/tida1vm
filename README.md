@@ -8,9 +8,26 @@
 
 Currently, there's a branch for:  
 
-* [TidalCycles 0.6 + MIDI](/lvm/tida1vm/tree/0.6)  
-* [TidalCycles 0.7 + MIDI](/lvm/tida1vm/tree/0.7)  
-* [TidalCycles 0.7 + Dirt](/lvm/tida1vm/tree/dirt)  
+#### TidalCycles 0.6 + MIDI  :star2:
+
+This is the `stable` branch.  
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.6)
+* :link: [download](https://github.com/lvm/tida1vm/archive/0.6.zip)
+
+#### TidalCycles 0.7 + MIDI
+
+This is the `unstable` branch.  
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.7)
+* :link: [download](https://github.com/lvm/tida1vm/archive/0.7.zip)  
+
+#### TidalCycles 0.7 + Dirt
+
+This is the `legacy` branch.  
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/dirt)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/dirt.zip)
 
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
