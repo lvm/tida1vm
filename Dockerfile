@@ -65,14 +65,15 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 #
 ###
 RUN cabal update \
-    && cabal install tidal \
+    && cabal install tidal-0.8 \
+    && cabal install tidal-midi-0.8 \
     && unzip $HOME/tidal-midi-fluidsynth.zip -d $HOME \
     && cd $HOME/tidal-midi-fluidsynth-master \
     && cabal configure \
     && cabal build \
     && cabal install \
     && cd $HOME \
-    && rm -fr $HOME/tidal-midi-0.6-dev $HOME/tidal-midi-fluidsynth.zip \
+    && rm -fr $HOME/tidal-midi-fluidsynth.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
