@@ -1,27 +1,26 @@
 # wat?
 
-This documentation should help you (the livecoder) to install and to start coding music live with TidalCycles using this Docker container.  
+This documentation should help you (the livecoder) to install and to start coding music live with [TidalCycles](https://tidalcycles.org/) using this [Docker](https://docker.io/) container.  
   
 If you already know {what is,how to use} Docker, you might want to skip these first questions (fixes, comments are welcome btw!).  
 
 ## What is Docker?
 
-Docker is a *platform to distribute applications for devs or sysadmins*.  
+[Docker](https://docker.io/) is a *platform to distribute applications for devs or sysadmins*.  
 In other words, you built a web-app and instead of installing this directly to the `host`, you create a `container` which contains everything you can find on a basic installation of your favorite GNU/Linux distro (be it Debian, Ubuntu, Arch, or even BusyBox), this way on one hand you have a clean install on your computer/server and on the other hand you have a piece of software that (ideally) will have the correct dependencies and should *just work* (TM). Think of it as a `chroot` on steroids.  
 For example, `Python` has a similar approach using `virtualenv` which allows the developer to install the correct `Python` libraries without messing with *system-wide* libraries.  
   
 
 ## Sounds good, but how do I install Docker?
 
-First of all, install `docker`.  
-On OS X [here](https://docs.docker.com/engine/installation/mac/) is a nice guide on how to proceed. Same thing for Windows [here](https://docs.docker.com/engine/installation/windows/).  
+For OS X [here](https://docs.docker.com/engine/installation/mac/) is a nice guide on how to proceed. Same thing for Windows [here](https://docs.docker.com/engine/installation/windows/).  
 On Debian based distros:  
 
 ```bash
 $ sudo apt-get install docker.io
 ```
 
-Once installed, we need to add your user to the `docker` group, this way we avoid using `sudo` each time we launch `docker`.  
+Once installed, you need to add your user to the `docker` group, this way we avoid using `sudo` everytime we launch `docker`.  
 
 ```bash
 $ sudo adduser `whoami` docker
@@ -36,7 +35,7 @@ Awesome. Now the next part is to `pull` or `build` a container.
 
 ### Building
 
-To `build`ing a Docker container, what we're doing is creating a clean installation from our favorite OS to start working/deploying our app with our particular requirments.  
+When `build`ing a `docker` `container`, what we're doing is creating a clean installation from our favorite OS to start working/deploying our app with our particular requirments.  
 In order to do that we need to create a file called `Dockerfile`.  
 These files look something like this:  
 
@@ -56,7 +55,7 @@ RUN apt-get update && apt-get install -y \
 ENTRYPOINT [ "netcat" ]
 ```
 
-In this *recipe*, we're telling Docker that we'll start `FROM` a clean Debian "sid" image, that the `MAINTAINER` is Jessica Frazelle, and once we downloaded the Debian image, to `RUN` the `apt-get` commands to install `netcat` and to clean the apt cache. Finally, the `ENTRYPOINT` for this container will be `netcat`. This way, we can use it as a stand-alone application, just like if we had `netcat` installed on our computer.  
+In this *recipe*, we're telling `docker` that we'll start `FROM` a clean Debian "sid" image, that the `MAINTAINER` is Jessica Frazelle, and once we downloaded the Debian image, to `RUN` the `apt-get` commands to install `netcat` and to clean the apt cache. Finally, the `ENTRYPOINT` for this container will be `netcat`. This way, we can use it as a stand-alone application, just like if we had `netcat` installed on our computer.  
 Perhaps the first time is sort of mind-boggling but it's not that weird after a few tries.  
   
 Anyway, once we have our `Dockerfile` we need to tell `docker` to build a local image for us to use.  
@@ -84,7 +83,7 @@ Let's say we want to obtain a clean Debian "jessie" installation:
 $ docker pull debian:jessie
 ```
 
-What about an Ubuntu one? 
+What about an Ubuntu one?
 
 ```bash
 $ docker pull ubuntu:14.04
@@ -102,7 +101,7 @@ A webserver? is nginx ok?
 $ docker pull nginx
 ```
 
-[Dockerhub](https://hub.docker.com/explore/) provides *a lot* of official images ready to pull. But let's start with our topic of interest which is...
+[Dockerhub](https://hub.docker.com/explore/) provides *a lot* of official (and user contributed) images ready to pull. But let's start with our topic of interest which is...
 
 
 ## Excellent, I have all setup. Let's start livecoding!
@@ -117,7 +116,7 @@ For this, I've prepared three `branches` with different setups:
 
 ### tidalcycles 0.6 + tidal-midi
 
-This image contains TidalCycles 0.6 + tidal-midi 0.6 + a custom module called `GM1Drums.hs` which supports the same as `VolcaBeats.hs` but regarding General MIDI Level 1 (and 2) keys.  
+This image contains [TidalCycles](https://tidalcycles.org/) 0.6 + tidal-midi 0.6 + a custom module called `GM1Drums.hs` which supports the same as `VolcaBeats.hs` but regarding General MIDI Level 1 (and 2) keys for percussion.  
 Also, it's possible to use `Dirt` but this should point to another computer (even the `host` machine) with `Dirt` installed. See [here](http://tidalcycles.org/howtos.html#multi_laptop) for more info about this.  
 Download:
 
@@ -125,14 +124,18 @@ Download:
 $ docker pull lvm23/tida1vm:0.6
 ```
 
+Git repo, [here](https://github.com/lvm/tida1vm/tree/0.6)
+
 ### tidalcycles 0.7 + tidal-midi
 
-This image is the same as `tidalcycles 0.6 + tidal-midi` except it uses TidalCycles 0.7 :-)  
+This image is the same as `tidalcycles 0.6 + tidal-midi` except it uses [TidalCycles](https://tidalcycles.org/) 0.7 :-)  
 Download:
 
 ```bash
 $ docker pull lvm23/tida1vm:0.7
 ```
+
+Git repo, [here](https://github.com/lvm/tida1vm/tree/0.7)
 
 ### tidalcycles 0.6 + Dirt
   
@@ -142,6 +145,8 @@ Download:
 ```bash
 $ docker pull lvm23/tida1vm:dirt
 ```
+
+Git repo, [here](https://github.com/lvm/tida1vm/tree/dirt)
 
 ## Great, everything is installed and configured!
 
@@ -156,7 +161,7 @@ $ docker -it --rm run lvm23/tida1vm:0.6
 And that's it. We should see an ASCII art welcoming us and a `bash` prompt, by typing `emacs` inside this `container`, we'll launch `emacs` *inside* the container (which is **not** the same as in our `host`) and an already configured environment is waiting for us to play.  
   
 But wait! there's more to it!  
-We need to tell this new `container` to communicate via USB to our MIDI Device;  in order to do that we need to pass a couple of extra parameters to `docker run`:  
+We need to tell this new `container` to communicate via USB to our MIDI Device;  in order to do that we need to pass a couple of extra parameters to `docker` `run`:  
 *Note: This is the full command*
 ```bash
 $ docker run -it --rm \
@@ -171,16 +176,16 @@ $ docker run -it --rm \
 Explanation:  
 `-it`, interactive tty  
 `--rm`, remove after exit  
-`--privileged`, gives *privileges* to access `host` devices, which usually `docker container`s don't have it  
+`--privileged`, gives *privileges* to access `host` devices, which usually `docker` `container`s don't have it  
 `--net=host`, uses the `host`'s network stack  
 `-p 7771:7771`, publishes `container`s ports to the `host`. In this case `Dirt`'s port  
-`-v $HOME/tidal:/home/tidal/trax`, *mounts* a `host` directory to a `docker` `volume`, this way we don't loose our code after exiting the `docker container`  
+`-v $HOME/tidal:/home/tidal/trax`, *mounts* a `host` directory to a `docker` `volume`, this way we don't loose our code after exiting the `docker` `container`  
 `-v /dev/bus/usb:/dev/bus/usb`, *mounts* the `host` usb devices to `docker` `container`  
 `--name 1vm6`, the `container`'s name
-`lvm23/tida1vm:0.6`, the actual `docker image`  
+`lvm23/tida1vm:0.6`, the actual `docker` `image`  
 
 
-To read more about [`docker volume`](https://docs.docker.com/engine/userguide/containers/dockervolumes/), it's an interesting topic which can save us a headache.
+To read more about [`docker` `volume`](https://docs.docker.com/engine/userguide/containers/dockervolumes/), it's an interesting topic which can save us a headache.
 
 
 ## The end?
@@ -188,6 +193,6 @@ To read more about [`docker volume`](https://docs.docker.com/engine/userguide/co
 Now we *could* start livecoding, except for one little tiny issue: We need MIDI Devices.  
 Well, for this part we will need at least `fluidsynth` or a physical synth which supports MIDI In; the package `tidal-midi` already supports a wide variety of devices and if yours isn't supported, writing a module from scratch isn't that hard.  
   
-Well, that's it regarding `docker`, `TidalCycles` and `tida1vm`. For more info, look for the complementing docs.  
+Well, that's it regarding [Docker](https://docker.io/), [TidalCycles](https://tidalcycles.org/) and [tida1vm](http://github.com/lvm/tida1vm). For more info, look for the complementing docs.  
   
 Happy livecoding!
