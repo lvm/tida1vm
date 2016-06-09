@@ -9,34 +9,37 @@ Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ git checkout 0.7
-$ docker build -t tida1vm-0.7 .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name 1vm7 tida1vm-0.7
+$ git checkout 0.8
+$ docker build -t tida1vm-0.8 .
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name 1vm8 tida1vm-0.8
 ```
 
 ## MIDI Ports
 
 All of them are connected to ALSA "Midi Through".  
 
-| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont  | Notes              | Alias  |
-| ------------| ------ | --------- | -------------- | ---------- | ------------------ | ------ |
-| Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |        |
-| Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |        |
-| Qsynth      | drums  | 3         | GM1Drums.hs    | FluidR3_GM | Bank 128 / Prog 25 |        |
-| {Q,am}synth | midi4  | 4         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi5  | 5         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi6  | 6         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi7  | 7         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi8  | 8         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi9  | 9         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi10 | 10        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi11 | 11        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi12 | 12        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi13 | 13        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi14 | 14        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi15 | 15        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi16 | 16        | SimpleSynth.hs |            |                    |        |
+| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont   | Notes              |
+| ------------| ------ | --------- | -------------- | ----------- | ------------------ |
+| Volca Beats | beats  | 1         | VolcaBeats.hs  |             |                    |
+| Volca Bass  | bass   | 2         | VolcaBass.hs   |             |                    |
+| Qsynth      | drums  | 3         | GMPerc.hs      | GeneralUser | Bank 145 / Prog 25 |
+| {Q,am}synth | midi4  | 4         | Synth.hs       |             |                    |
+| {Q,am}synth | midi5  | 5         | Synth.hs       |             |                    |
+| {Q,am}synth | midi6  | 6         | Synth.hs       |             |                    |
+| {Q,am}synth | midi7  | 7         | Synth.hs       |             |                    |
+| {Q,am}synth | midi8  | 8         | Synth.hs       |             |                    |
+| {Q,am}synth | midi9  | 9         | Synth.hs       |             |                    |
+| {Q,am}synth | midi10 | 10        | Synth.hs       |             |                    |
+| {Q,am}synth | midi11 | 11        | Synth.hs       |             |                    |
+| {Q,am}synth | midi12 | 12        | Synth.hs       |             |                    |
+| {Q,am}synth | midi13 | 13        | Synth.hs       |             |                    |
+| {Q,am}synth | midi14 | 14        | Synth.hs       |             |                    |
+| {Q,am}synth | midi15 | 15        | Synth.hs       |             |                    |
+| {Q,am}synth | midi16 | 16        | Synth.hs       |             |                    |
 
+
+The [GeneralUser SoundFont](http://www.schristiancollins.com/generaluser.php) is a work by [S. Christian Collins](http://www.schristiancollins.com/).  
+  
 They used to be named based on a particular use, now it's more generic.  
 In order to alias any stream, just write in your `.tidal` file, something like:
 
@@ -45,12 +48,12 @@ let something = midi4
 
 -- now it can be used as:
 
-something $ n $ tom "c d e f"
+something $ n "c d e f"
 ```
 
 ### Custom `tidal-midi` Synths
 
-For `0.7`, since it has MIDI integrated, I created a repo for FluidSynth [here](https://github.com/lvm/tidal-midi-fluidsynth) with two exposed modules: `GMDrums.hs` and `GMInst.hs`, one for Drums and other for the rest of the instruments.
+For `0.8`, I updated the `General MIDI Percussion keymap` module [here](https://github.com/lvm/tidal-midi/) with the idea to integrate it to the rest of `tidal-midi`. Ideally, it should be integrated, for now you can download it from my fork.
 
 ### midithru-connect
 
@@ -83,4 +86,5 @@ For more info, take a look at the [wiki](https://github.com/lvm/tida1vm/wiki).
 - [Qsynth](http://qsynth.sourceforge.net/qsynth-index.html)
 - [amsynth](https://amsynth.github.io/)
 - [GM Level 1 Sound Set](https://www.midi.org/specifications/item/gm-level-1-sound-set)
+- [GeneralUser SoundFont](http://www.schristiancollins.com/generaluser.php)
 - [TOPLAP The Home of Live Coding](http://toplap.org/)
