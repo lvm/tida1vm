@@ -1,25 +1,7 @@
--- lazy helpers
-let n = S.note
-    dur = S.dur
-    nm p = n $ tom p
-    --
-    ch :: Int -> [Int] -> Pattern Int
-    ch n chord = listToPat [ch + n | ch <- chord]
-    --- x $ n (cho 48 "1 [~ 1] 1 1 " [0, 3, 7, 5])
-    cho n pat chord = preplace(1,1) pat $ listToPat [ch + n | ch <- chord]
-    --- x $ n (cho' 48 3 "1 [~ 1] 1 1 " [0, 3, 7, 5])
-    cho' n off pat chord = cho (n+off) pat chord
-    --- x $ slowcho [47, 45, 42] "[1 !] 1 1 1" [0, 3, 0, 3]
-    slowcho nlist pat chord = slowcat[n (cho ni pat chord) | ni <- nlist]
-    --- x $ slowcho' [47, 45, 42] 3 "[1 !] 1 1 1" [0, 3, 0, 3]
-    slowcho' nlist off pat chord = slowcat[n (cho' ni off pat chord) | ni <- nlist]
-    --  x $ slowcat[n (cho 60 "1 1 1" (rotate i [0,3,7,10])) | i <- [0..3]]
-    rotate :: Int -> [a] -> [a]
+-- helpers
+let rotate :: Int -> [a] -> [a]
     rotate _ [] = []
     rotate n xs = zipWith const (drop n (cycle xs)) xs
-    -- x $ chrot [51, 48] "1 1 1 1" [0, 3, 5, 7]
-    chrot nlist pat chord = slowcat[slowcho nlist pat (rotate i chord) | i <- [0..((length chord)-1)]]
-    chrot' nlist off pat chord = slowcat[slowcho' nlist off pat (rotate i chord) | i <- [0..((length chord)-1)]]
 
 -- chords
 let minor :: Pattern Int

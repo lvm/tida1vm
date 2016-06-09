@@ -42,8 +42,6 @@ RUN apt-get update \
     && mkdir -p $HOME \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
-    && mkdir -p $HOME/bin \
-    && wget --no-check-certificate https://github.com/lvm/tidal-midi-fluidsynth/archive/master.zip -O $HOME/tidal-midi-fluidsynth.zip
 
 ###
 #
@@ -64,16 +62,11 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 # Install Tidal && Fix perms
 #
 ###
+
+
 RUN cabal update \
     && cabal install tidal-0.8 \
     && cabal install tidal-midi-0.8 \
-    && unzip $HOME/tidal-midi-fluidsynth.zip -d $HOME \
-    && cd $HOME/tidal-midi-fluidsynth-master \
-    && cabal configure \
-    && cabal build \
-    && cabal install \
-    && cd $HOME \
-    && rm -fr $HOME/tidal-midi-fluidsynth.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
