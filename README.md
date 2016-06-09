@@ -29,55 +29,35 @@ This is the `legacy` branch.
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/dirt)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/dirt.zip)
 
+#### TidalCycles 0.8 + MIDI
+
+This is the `current` branch.  
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.8)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/0.8.zip)
+
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
-So, let's say, you want to run the `0.6` version, simply:
+So, let's say, you want to run the `0.8` version, simply:
 
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ git checkout 0.6
-$ docker build -t tida1vm-0.6 .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm6 tida1vm-0.6
+$ git checkout 0.8
+$ docker build -t tida1vm-0.8 .
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm6 tida1vm-0.8
 ```
 
 ## MIDI Ports
 
-All of them are connected to ALSA "Midi Through".  
-
-| Device      | Stream | MIDI Port | Tidal Midi     | Soundfont  | Notes              | Alias  |
-| ------------| ------ | --------- | -------------- | ---------- | ------------------ | ------ |
-| Volca Beats | beats  | 1         | VolcaBeats.hs  |            |                    |        |
-| Volca Bass  | bass   | 2         | VolcaBass.hs   |            |                    |        |
-| Qsynth      | drums  | 3         | GM1Drums.hs    | FluidR3_GM | Bank 128 / Prog 25 |        |
-| {Q,am}synth | midi4  | 4         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi5  | 5         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi6  | 6         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi7  | 7         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi8  | 8         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi9  | 9         | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi10 | 10        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi11 | 11        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi12 | 12        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi13 | 13        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi14 | 14        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi15 | 15        | SimpleSynth.hs |            |                    |        |
-| {Q,am}synth | midi16 | 16        | SimpleSynth.hs |            |                    |        |
-
-In order to alias any stream, just write in your `.tidal` file, something like:
-
-```
-let something = midi4
-
--- now it can be used as:
-
-something $ n $ tom "c d e f"
-```
+See the `README` for each branch.
 
 ### Custom `tidal-midi` Synths
 
 For `0.6`, there's a forked version of `tidal-midi` [here](https://github.com/lvm/tidal-midi), removing most of the synths (which I don't have) and added `GM1Drums.hs` configured after GM1 standards for percussion in GM soundfonts. Uses `gdrum` (works with `drum` too, but won't recognize all GM1 values).  
-For `0.7`, since it has MIDI integrated, I created a repo for FluidSynth [here](https://github.com/lvm/tidal-midi-fluidsynth) with two exposed modules: `GMDrums.hs` and `GMInst.hs`, one for Drums and other for the rest of the instruments.
+For `0.7`, since it has MIDI integrated, I created a repo for FluidSynth [here](https://github.com/lvm/tidal-midi-fluidsynth) with two exposed modules: `GMDrums.hs` and `GMInst.hs`, one for Drums and other for the rest of the instruments.  
+For `0.8`, it should be integrated within `tidal-midi`.
+
 
 
 ### midithru-connect
