@@ -42,6 +42,7 @@ RUN apt-get update \
     && mkdir -p $HOME \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
+    && wget --no-check-certificate https://github.com/lvm/tidal-midi-gm/archive/master.zip -O $HOME/tidal-midi-gm.zip
 
 ###
 #
@@ -67,6 +68,11 @@ COPY ["tidal/lazy-helpers.tidal", "$HOME/livecode/lazy-helpers.tidal"]
 RUN cabal update \
     && cabal install tidal-0.8 \
     && cabal install tidal-midi-0.8 \
+    && unzip $HOME/tidal-midi-gm.zip -d $HOME \
+    && cd $HOME/tidal-midi-gm-master \
+    && cabal configure && cabal build && cabal install \
+    && cd $HOME \
+    && rm -fr $HOME/tidal-midi-gm-master $HOME/tidal-midi-gm.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
