@@ -53,7 +53,7 @@ something $ n "c d e f"
 
 ### Custom `tidal-midi` Synths
 
-For `0.8`, I updated the `General MIDI Percussion keymap` module [here](https://github.com/lvm/tidal-midi/) with the idea to integrate it to the rest of `tidal-midi`. Ideally, it should be integrated, for now you can download it from my fork.
+For `0.8`, I updated the `General MIDI Percussion keymap` module [here](https://github.com/lvm/tidal-midi-gm/) with the idea to integrate it to the rest of `tidal-midi`.
 
 ### midithru-connect
 
