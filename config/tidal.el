@@ -62,7 +62,7 @@
     (tidal-see-output))
   (tidal-send-string ":set prompt \"\"")
   (tidal-send-string ":module Sound.Tidal.Context")
-  (tidal-send-string "(cps, getNow) <- bpsUtils")
+  (tidal-send-string "(cps, getNow) <- cpsUtils")
   (tidal-send-string "let bps x = cps (x/2)")
 
   ;; begin of midi

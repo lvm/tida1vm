@@ -34,6 +34,8 @@
 (add-hook 'isearch-update-post-hook 'redraw-display)
 
 (add-to-list 'load-path "~/.elisp")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
 (require 'haskell-mode)
 (require 'tidal)
 
@@ -46,4 +48,5 @@
 
 (execute-kbd-macro (symbol-function 'stidal))
 
-(load-theme 'wombat t)
+(add-hook 'after-init-hook
+	        (lambda () (load-theme 'cyberpunk-transparent t)))
