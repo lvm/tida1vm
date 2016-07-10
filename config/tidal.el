@@ -70,6 +70,7 @@
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBass")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBeats")
   (tidal-send-string "import Sound.Tidal.MIDI.GMPerc")
+  (tidal-send-string "import Sound.Tidal.MIDI.GMSynth")
   (tidal-send-string "devices <- midiDevices")
   (tidal-send-string "beat <- midiStream devices \"Midi Through Port-0\" 1 beatsController")
   (tidal-send-string "bass <- midiStream devices \"Midi Through Port-0\" 2 bassController")
