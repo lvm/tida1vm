@@ -1,9 +1,3 @@
--- helpers
-let rotate :: Int -> [a] -> [a]
-    rotate _ [] = []
-    rotate n xs = zipWith const (drop n (cycle xs)) xs
-
--- chords
 let minor :: Pattern Int
     minor = listToPat [0,3,7]
     major :: Pattern Int
@@ -52,4 +46,9 @@ let minor :: Pattern Int
     mpent = listToPat [0,3,5,7,10,12]
     pent :: Pattern Int
     pent = listToPat [0,2,4,7,9,12]
+
+
+let rotate :: Int -> [a] -> [a]
+    rotate _ [] = []
+    rotate n xs = zipWith const (drop n (cycle xs)) xs
 
