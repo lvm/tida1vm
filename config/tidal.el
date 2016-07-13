@@ -69,6 +69,7 @@
   (tidal-send-string "import Sound.Tidal.MIDI.Context")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBass")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBeats")
+  (tidal-send-string "import Sound.Tidal.MIDI.GMParams")
   (tidal-send-string "import Sound.Tidal.MIDI.GMPerc")
   (tidal-send-string "import Sound.Tidal.MIDI.GMSynth as GS")
   (tidal-send-string "devices <- midiDevices")
