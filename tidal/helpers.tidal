@@ -1,52 +1,75 @@
-let minor :: Pattern Int
-    minor = listToPat [0,3,7]
+let minorList = [0,3,7]
+    minor :: Pattern Int
+    minor = listToPat minorList
+    majorList = [0,4,7]
     major :: Pattern Int
-    major = listToPat [0,4,7]
+    major = listToPat majorList
+    nineList = [0,4,7,10,14]
     nine :: Pattern Int
-    nine = listToPat [0,4,7,10,14]
+    nine = listToPat nineList
+    ninesus4List = [0,5,7,10,14]
     ninesus4 :: Pattern Int
-    ninesus4 = listToPat [0,5,7,10,14]
+    ninesus4 = listToPat ninesus4List
+    add9List = [0,4,7,14]
     add9 :: Pattern Int
-    add9 = listToPat [0,4,7,14]
+    add9 = listToPat add9List
+    madd9List = [0,3,7,14]
     madd9 :: Pattern Int
-    madd9 = listToPat [0,3,7,14]
+    madd9 = listToPat madd9List
+    maj9List = [0,4,7,11,14]
     maj9 :: Pattern Int
-    maj9 = listToPat [0,4,7,11,14]
+    maj9 = listToPat maj9List
+    m9List = [0,3,7,10,14]
     m9 :: Pattern Int
-    m9 = listToPat [0,3,7,10,14]
+    m9 = listToPat m9List
+    sus2List = [0,2,7]
     sus2 :: Pattern Int
-    sus2 = listToPat [0,2,7]
+    sus2 = listToPat sus2List
+    sus4List = [0,5,7]
     sus4 :: Pattern Int
-    sus4 = listToPat [0,5,7]
+    sus4 = listToPat sus4List
+    sevenList = [0,4,7,10]
     seven :: Pattern Int
-    seven = listToPat [0,4,7,10]
+    seven = listToPat sevenList
+    m7List = [0,3,7,10]
     m7 :: Pattern Int
-    m7 = listToPat [0,3,7,10]
+    m7 = listToPat m7List
+    elevenList = [0,4,7,10,14,17]
     eleven :: Pattern Int
-    eleven = listToPat [0,4,7,10,14,17]
+    eleven = listToPat elevenList
+    m11List = [0,3,7,10,14,17]
     m11 :: Pattern Int
-    m11 = listToPat [0,3,7,10,14,17]
+    m11 = listToPat m11List
+    thirteenList = [0,4,7,10,14,21]
     thirteen :: Pattern Int
-    thirteen = listToPat [0,4,7,10,14,21]
+    thirteen = listToPat thirteenList
+    m13List = [0,3,7,10,14,21]
     m13 :: Pattern Int
-    m13 = listToPat [0,3,7,10,14,21]
+    m13 = listToPat m13List
+    ionianList = [0,2,4,5,7,9,11]
     ionian :: Pattern Int
-    ionian = listToPat [0,2,4,5,7,9,11]
+    ionian = listToPat ionianList
+    aeolianList = [0,2,3,5,7,8,10]
     aeolian :: Pattern Int
-    aeolian = listToPat [0,2,3,5,7,8,10]
+    aeolian = listToPat aeolianList
+    locrianList = [0,1,3,5,6,8,10]
     locrian :: Pattern Int
-    locrian = listToPat [0,1,3,5,6,8,10]
+    locrian = listToPat locrianList
+    phrygList = [0,1,3,5,7,8,10]
     phryg :: Pattern Int
-    phryg = listToPat [0,1,3,5,7,8,10]
+    phryg = listToPat phrygList
+    lydianList = [0,2,4,6,7,9,11]
     lydian :: Pattern Int
-    lydian = listToPat [0,2,4,6,7,9,11]
+    lydian = listToPat lydianList
+    enigList = [0,1,3,5,6,8,10,11]
     enig :: Pattern Int
-    enig = listToPat [0,1,3,5,6,8,10,11]
+    enig = listToPat enigList
+    mpentList = [0,3,5,7,10,12]
     mpent :: Pattern Int
-    mpent = listToPat [0,3,5,7,10,12]
+    mpent = listToPat mpentList
+    pentList = [0,2,4,7,9,12]
     pent :: Pattern Int
-    pent = listToPat [0,2,4,7,9,12]
-
+    pent = listToPat pentList
 
 let rotate :: Int -> [a] -> [a]
     rotate _ [] = []
