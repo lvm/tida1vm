@@ -45,6 +45,7 @@ RUN apt-get update \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
     && wget https://github.com/lvm/tidal-midi-gm/archive/master.zip -O $HOME/tidal-midi-gm.zip \
+    && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el
 
 ###
@@ -74,8 +75,12 @@ RUN cabal update \
     && unzip $HOME/tidal-midi-gm.zip -d $HOME \
     && cd $HOME/tidal-midi-gm-master \
     && cabal configure && cabal build && cabal install \
+    && unzip $HOME/tidal-drum-patterns.zip -d $HOME \
+    && cd $HOME/tidal-drum-patterns-master \
+    && cabal configure && cabal build && cabal install \
     && cd $HOME \
     && rm -fr $HOME/tidal-midi-gm-master $HOME/tidal-midi-gm.zip \
+    && rm -fr $HOME/tidal-drum-patterns-master $HOME/tidal-drum-patterns.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
