@@ -10,7 +10,7 @@ Currently, there's a branch for:
 
 #### TidalCycles 0.6 + MIDI  :star2:
 
-This is the `stable` branch.  
+This is the `oldstable` branch.  
 
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.6)
 * :link: [download](https://github.com/lvm/tida1vm/archive/0.6.zip)
@@ -35,6 +35,13 @@ This is the `current` branch.
 
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.8)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/0.8.zip)
+
+#### TidalCycles 0.8 + MIDI + EspGrid
+
+This is the `testing` branch.  
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/esp)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/esp.zip)
 
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
