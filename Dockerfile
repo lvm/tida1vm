@@ -84,6 +84,7 @@ RUN cabal update \
      && cd $HOME/tidal-drum-patterns-master \
      && cabal configure && cabal build && cabal install \
      && cd $HOME \
+     && rm -fr $HOME/Tidal-espgrid $HOME/tidal-espgrid.zip \
      && rm -fr $HOME/tidal-midi-gm-master $HOME/tidal-midi-gm.zip \
      && rm -fr $HOME/tidal-drum-patterns-master $HOME/tidal-drum-patterns.zip \
      && chown -Rh $USER:$USER -- $HOME
