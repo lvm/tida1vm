@@ -58,10 +58,6 @@
       "\C-xk")
 
 ;;(find-file "~/livecode/helpers.tidal")
-
-(execute-kbd-macro (symbol-function 'stidal))
-(sleep-for 2)
-(execute-kbd-macro (symbol-function 'sfocusother))
 ;; (sleep-for 2)
 ;; (execute-kbd-macro (symbol-function 'smarkall))
 ;; (sleep-for 2)
@@ -70,6 +66,10 @@
 ;; (execute-kbd-macro (symbol-function 'skillbuff))
 
 (find-file "~/livecode/init.tidal")
+
+(execute-kbd-macro (symbol-function 'stidal))
+(sleep-for 2)
+(execute-kbd-macro (symbol-function 'sfocusother))
 
 (add-hook 'after-init-hook
 	        (lambda () (load-theme 'cyberpunk-transparent t)))
