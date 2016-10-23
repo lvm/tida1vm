@@ -67,6 +67,7 @@
 
   ;; begin of midi
   (tidal-send-string "import Sound.Tidal.MIDI.Context")
+  (tidal-send-string "import Sound.Tidal.Scales")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBass")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBeats")
   (tidal-send-string "import Sound.Tidal.MIDI.GMParams")
