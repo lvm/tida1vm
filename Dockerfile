@@ -46,6 +46,7 @@ RUN apt-get update \
     && mkdir -p $HOME/.emacs.d/themes \
     && wget https://github.com/d0kt0r0/Tidal/archive/espgrid.zip -O $HOME/tidal-espgrid.zip \
     && wget https://github.com/lvm/tidal-midi-gm/archive/master.zip -O $HOME/tidal-midi-gm.zip \
+    && wget https://github.com/lvm/tidal-scales/archive/master.zip -O $HOME/tidal-scales.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el
 
@@ -79,6 +80,9 @@ RUN cabal update \
      && cabal install tidal-midi-0.8 \
      && unzip $HOME/tidal-midi-gm.zip -d $HOME \
      && cd $HOME/tidal-midi-gm-master \
+     && cabal configure && cabal build && cabal install \
+     && unzip $HOME/tidal-scales.zip -d $HOME \
+     && cd $HOME/tidal-scales-master \
      && cabal configure && cabal build && cabal install \
      && unzip $HOME/tidal-drum-patterns.zip -d $HOME \
      && cd $HOME/tidal-drum-patterns-master \

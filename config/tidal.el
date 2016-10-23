@@ -72,6 +72,7 @@
   (tidal-send-string "streamType <- initializeStreamType")
   (tidal-send-string "superDirt <- changeStreamType streamType SuperDirt")
   (tidal-send-string "import Sound.Tidal.MIDI.Context")
+  (tidal-send-string "import Sound.Tidal.Scales")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBass")
   (tidal-send-string "import Sound.Tidal.MIDI.VolcaBeats")
   (tidal-send-string "import Sound.Tidal.MIDI.GMParams")
