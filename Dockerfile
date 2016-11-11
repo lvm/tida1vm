@@ -32,8 +32,7 @@ RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get install -yq \
     emacs24-nox haskell-mode tmux \
-    zlib1g-dev liblo7 libportmidi0 \
-    libportmidi-dev libasound2-dev \
+    zlib1g-dev liblo7 libasound2-dev \
     cabal-install wget unzip \
     ca-certificates \
     --no-install-recommends \
@@ -44,7 +43,6 @@ RUN apt-get update \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
-    && wget https://github.com/lvm/tidal-midi-gm/archive/master.zip -O $HOME/tidal-midi-gm.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://github.com/lvm/tidal-scales/archive/master.zip -O $HOME/tidal-scales.zip \
     && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el
@@ -71,10 +69,7 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install tidal-0.8 \
-    && cabal install tidal-midi-0.8 \
-    && unzip $HOME/tidal-midi-gm.zip -d $HOME \
-    && cd $HOME/tidal-midi-gm-master \
+    && cabal install tidal-0.8.2 \
     && cabal configure && cabal build && cabal install \
     && unzip $HOME/tidal-scales.zip -d $HOME \
     && cd $HOME/tidal-scales-master \
@@ -83,8 +78,8 @@ RUN cabal update \
     && cd $HOME/tidal-drum-patterns-master \
     && cabal configure && cabal build && cabal install \
     && cd $HOME \
-    && rm -fr $HOME/tidal-midi-gm-master $HOME/tidal-midi-gm.zip \
     && rm -fr $HOME/tidal-drum-patterns-master $HOME/tidal-drum-patterns.zip \
+    && rm -fr $HOME/tidal-scales-master $HOME/tidal-scales.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
