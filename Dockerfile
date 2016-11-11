@@ -69,7 +69,7 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install tidal-0.8.2 \
+    && cabal install tidal \
     && cabal configure && cabal build && cabal install \
     && unzip $HOME/tidal-scales.zip -d $HOME \
     && cd $HOME/tidal-scales-master \
