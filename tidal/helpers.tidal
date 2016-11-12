@@ -1,7 +1,64 @@
--- just a couple of custom params
+import Data.Maybe
+
+{-
+FUNX
+-}
+
+-- bgold's
+let maybeInd xs i | i < length xs = Just $ xs!!i
+                  | otherwise = Nothing
+    chordate cs m n = map (+m) $ cs!!n
+    unMaybe = (fromJust <$>) . filterValues isJust
+    flatpat p = stack [unMaybe $ fmap (`maybeInd` i) p | i <- [0..9]]
+    enchord chords pn pc = flatpat $ (chordate chords) <$> pn <*> pc
+--  $ n (slowcat $ map (flip toScale $ "[0 1 2 3  4 3 2 1  0 -1 0 -1  0 ~ ~ ~]") [minor, kumai, hirajoshi, iwato])
+--  $ n (toScale major "[0 1 2 3  4 3 2 1  0 -1 0 -1  0 ~ ~ ~]/4")
+    toScale::[Int] -> Pattern Int -> Pattern Int
+    toScale s p = (+) <$> fmap (s!!) notep <*> fmap (12*) octp
+      where notep = fmap (`mod` (length s)) p
+            octp  = fmap (`div` (length s)) p
+    somecyclesBy x = when (test x) -- cycle-by-cycle version of sometimesBy
+      where test x c = (timeToRand $ fromIntegral c) < x
+    -- a new random number each cycle, looping after n cycles
+    cyclerand n = Pattern $ \(s,e) -> [((s,e),(s,e),timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
+    cycleirand m n = Pattern $ \(s,e) -> [((s,e),(s,e), floor $ (*m) $ timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
+
+-- anny's
+let bpm b = cps (b/60)
+    tmod s e = (# nudge (scale 0 s $ fmap (**e) saw1))
+    tmod' s e = tmod (s*(1/(105/60))) e
+    mt s d i = slow s $ tmod' 0.5 3 $ density d $ i
+
+-- danielmkarlson's
+let runnow d p = do now <- getNow
+                 d $ (nextSam now) ~> p
+
+
+-- based on slowspread :-)
+let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
+    randspread f xs p = randcat $ map (\x -> f x p) xs
+
+
+{-
+SynthDef params
+-}
 
 let (att, _) = pF "att" (Just 0)
     (dec, _) = pF "dec" (Just 0.25)
     (sus, _) = pF "rel" (Just 1)
     (rel, _) = pF "rel" (Just 0.75)
-    (freq, _) = pF "freq" (Just 440)
+    (rq, rq_p) =pF "rq" (Just 3)
+    (amp, amp_p) =pF "amp" (Just 0.1)
+    (ringTime, ringTime_p) =pF "ringTime" (Just 10)
+    (rel, _) = pF "rel" (Just 1.0)
+    (fatt, _) = pF "fatt" (Just 0.75)
+    (fdecay, _) = pF "fdecay" (Just 0.5)
+    (fsus, _) = pF "fsus" (Just 0.8)
+    (frel, _) = pF "frel" (Just 1.0)
+    (ratio, _) = pF "ratio" (Just 1.0)
+    (lforate, _) = pF "lforate" (Just 10)
+    (lfowidth, _) = pF "lfowidth" (Just 0.01)
+    (tu, _) = pF "tu" (Just 1)
+    (numharm, _) = pF "numharm" (Just 10)
+    (sinfreq, _) = pF "sinfreq" (Just 180)
+
