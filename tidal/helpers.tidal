@@ -43,14 +43,9 @@ let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
 SynthDef params
 -}
 
-let (att, _) = pF "att" (Just 0)
-    (dec, _) = pF "dec" (Just 0.25)
-    (sus, _) = pF "rel" (Just 1)
-    (rel, _) = pF "rel" (Just 0.75)
-    (rq, rq_p) =pF "rq" (Just 3)
-    (amp, amp_p) =pF "amp" (Just 0.1)
-    (ringTime, ringTime_p) =pF "ringTime" (Just 10)
-    (rel, _) = pF "rel" (Just 1.0)
+let (rq, rq_p) = pF "rq" (Just 3)
+    (amp, amp_p) = pF "amp" (Just 0.1)
+    (ringTime, ringTime_p) = pF "ringTime" (Just 10)
     (fatt, _) = pF "fatt" (Just 0.75)
     (fdecay, _) = pF "fdecay" (Just 0.5)
     (fsus, _) = pF "fsus" (Just 0.8)
