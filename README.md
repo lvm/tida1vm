@@ -8,40 +8,41 @@
 
 Currently, there's a branch for:  
 
-#### TidalCycles 0.6 + MIDI  :star2:
-
-This is the `oldstable` branch.  
+#### TidalCycles 0.6 + MIDI  
 
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.6)
 * :link: [download](https://github.com/lvm/tida1vm/archive/0.6.zip)
+* :whale: `docker pull lvm23/tida1vm:0.6` 
 
 #### TidalCycles 0.7 + MIDI
 
-This is the `unstable` branch.  
-
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.7)
 * :link: [download](https://github.com/lvm/tida1vm/archive/0.7.zip)  
+* :whale: `docker pull lvm23/tida1vm:0.7` 
 
 #### TidalCycles 0.7 + Dirt
 
-This is the `legacy` branch.  
-
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/dirt)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/dirt.zip)
+* :whale: `docker pull lvm23/tida1vm:0.6` 
 
 #### TidalCycles 0.8 + MIDI
 
-This is the `current` branch.  
-
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.8)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/0.8.zip)
+* :whale: `docker pull lvm23/tida1vm:0.8` 
 
 #### TidalCycles 0.8 + MIDI + EspGrid
 
-This is the `testing` branch.  
-
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/esp)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/esp.zip)
+* :whale: `docker pull lvm23/tida1vm:espgrid` 
+
+#### TidalCycles 0.8 + SuperDirt
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/superdirt)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/superdirt.zip)
+* :whale: `docker pull lvm23/tida1vm:superdirt` 
 
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
@@ -52,7 +53,12 @@ $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
 $ git checkout 0.8
 $ docker build -t tida1vm-0.8 .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm6 tida1vm-0.8
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm tida1vm-0.8
+```
+or just:
+```bash
+$ docker pull lvm23/tida1vm:0.8
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm lvm23/tida1vm:0.8
 ```
 
 ## MIDI Ports
