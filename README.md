@@ -44,6 +44,12 @@ Currently, there's a branch for:
 * :link: [Download](https://github.com/lvm/tida1vm/archive/superdirt.zip)
 * :whale: `docker pull lvm23/tida1vm:superdirt` 
 
+#### TidalCycles 0.9 + SuperDirt (:see_no_evil: DEVELOPMENT BRANCH :see_no_evil:)
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.9)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/0.9.zip)
+* :whale: `docker pull lvm23/tida1vm:0.9` 
+
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
 So, let's say, you want to run the `0.8` version, simply:
