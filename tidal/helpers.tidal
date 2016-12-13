@@ -31,7 +31,7 @@ let bpm b = cps (b/60)
 
 -- danielmkarlson's
 let runnow d p = do now <- getNow
-                 d $ (nextSam now) ~> p
+                    d $ (nextSam now) ~> p
 
 
 -- based on slowspread :-)
@@ -43,17 +43,21 @@ let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
 SynthDef params
 -}
 
-let (rq, rq_p) = pF "rq" (Just 3)
-    (amp, amp_p) = pF "amp" (Just 0.1)
-    (ringTime, ringTime_p) = pF "ringTime" (Just 10)
-    (fatt, _) = pF "fatt" (Just 0.75)
-    (fdecay, _) = pF "fdecay" (Just 0.5)
-    (fsus, _) = pF "fsus" (Just 0.8)
-    (frel, _) = pF "frel" (Just 1.0)
-    (ratio, _) = pF "ratio" (Just 1.0)
-    (lforate, _) = pF "lforate" (Just 10)
-    (lfowidth, _) = pF "lfowidth" (Just 0.01)
-    (tu, _) = pF "tu" (Just 1)
-    (numharm, _) = pF "numharm" (Just 10)
-    (sinfreq, _) = pF "sinfreq" (Just 180)
+let (amp, amp_p) = pF "amp" (Just 0)
+    (ctf, _) = pF "ctf" (Just 0)
+    (detune, _) = pF "detune" (Just 0)
+    (lpcutoff, _) = pF "lpcutoff" (Just 0)
+    (lforate, _) = pF "lforate" (Just 0)
+    (lfowidth, _) = pF "lfowidth" (Just 0)
+    (lfo, _) = pF "lfo" (Just 0)
+    (numharm, _) = pF "numharm" (Just 0)
+    (ratio, _) = pF "ratio" (Just 0)
+    (rq, rq_p) = pF "rq" (Just 0)
+    (sinfreq, _) = pF "sinfreq" (Just 0)
 
+{-
+SynthDef generic params.
+-}
+
+let mf x = fst $ pF x (Just 0)
+    mi x = fst $ pI x (Just 0)
