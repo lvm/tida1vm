@@ -46,7 +46,8 @@ RUN apt-get update \
     && wget https://github.com/tidalcycles/Tidal/archive/0.9-dev.zip -O $HOME/tidal-0.9.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://github.com/lvm/tidal-scales/archive/master.zip -O $HOME/tidal-scales.zip \
-    && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el
+    && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el \
+    && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el
 
 ###
 #

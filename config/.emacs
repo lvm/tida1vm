@@ -30,6 +30,7 @@
 (setq visible-bell t)
 (setq scroll-step 1)
 (setq truncate-partial-width-windows nil)
+(menu-bar-mode -99) ;; no-x requires -99, x works with just -1
 
 (add-hook 'isearch-update-post-hook 'redraw-display)
 
@@ -72,4 +73,4 @@
 (execute-kbd-macro (symbol-function 'sfocusother))
 
 (add-hook 'after-init-hook
-	        (lambda () (load-theme 'cyberpunk-transparent t)))
+	        (lambda () (load-theme 'monochrome-transparent t)))

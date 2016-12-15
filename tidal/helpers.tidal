@@ -43,7 +43,7 @@ let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
 SynthDef params
 -}
 
-let (amp, amp_p) = pF "amp" (Just 0)
+let (amp, _) = pF "amp" (Just 0)
     (ctf, _) = pF "ctf" (Just 0)
     (detune, _) = pF "detune" (Just 0)
     (lpcutoff, _) = pF "lpcutoff" (Just 0)
