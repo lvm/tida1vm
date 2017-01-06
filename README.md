@@ -9,9 +9,9 @@ Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ git checkout 0.9
-$ docker build -t tida1vm-0.9 .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name 1vm tida1vm-0.9
+$ git checkout volca
+$ docker build -t tida1vm-volca .
+$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name 1vm tida1vm-volca
 ```
 
 
