@@ -32,6 +32,12 @@ Currently, there's a branch for:
 * :link: [Download](https://github.com/lvm/tida1vm/archive/0.8.zip)
 * :whale: `docker pull lvm23/tida1vm:0.8` 
 
+#### TidalCycles 0.8 + MIDI (Volca Beats + Volca Bass only)
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/volca)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/volca.zip)
+* :whale: `docker pull lvm23/tida1vm:volca` 
+
 #### TidalCycles 0.8 + MIDI + EspGrid
 
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/esp)
