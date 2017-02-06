@@ -23,15 +23,18 @@ let maybeInd xs i | i < length xs = Just $ xs!!i
     cyclerand n = Pattern $ \(s,e) -> [((s,e),(s,e),timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
     cycleirand m n = Pattern $ \(s,e) -> [((s,e),(s,e), floor $ (*m) $ timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
 
+
 -- anny's
 let bpm b = cps (b/60)
     tmod s e = (# nudge (scale 0 s $ fmap (**e) saw1))
     tmod' s e = tmod (s*(1/(105/60))) e
     mt s d i = slow s $ tmod' 0.5 3 $ density d $ i
 
+
 -- danielmkarlson's
 let runnow d p = do now <- getNow
                     d $ (nextSam now) ~> p
+    oneshot d p = runnow d $ seqP [(0, 1, p)]
 
 
 -- based on slowspread :-)
@@ -39,21 +42,14 @@ let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
     randspread f xs p = randcat $ map (\x -> f x p) xs
 
 
-{-
-SynthDef params
--}
-
-let (amp, _) = pF "amp" (Just 0)
-    (ctf, _) = pF "ctf" (Just 0)
-    (detune, _) = pF "detune" (Just 0)
-    (lpcutoff, _) = pF "lpcutoff" (Just 0)
-    (lforate, _) = pF "lforate" (Just 0)
-    (lfowidth, _) = pF "lfowidth" (Just 0)
-    (lfo, _) = pF "lfo" (Just 0)
-    (numharm, _) = pF "numharm" (Just 0)
-    (ratio, _) = pF "ratio" (Just 0)
-    (rq, rq_p) = pF "rq" (Just 0)
-    (sinfreq, _) = pF "sinfreq" (Just 0)
+-- yaxu's
+let loopFirst p = splitQueries $ Pattern f
+      where f a@(s,e) = mapSnds' plus $ mapFsts' plus $ arc p (minus a)
+              where minus = mapArc (subtract (sam s))
+                    plus = mapArc (+ (sam s))
+    outside n = inside (1/n)
+    timeLoop n = outside n loopFirst
+    seqPLoop ps = timeLoop (maximum $ map (\(_,x,_) -> x) ps) $ seqP ps
 
 {-
 SynthDef generic params.
@@ -61,3 +57,19 @@ SynthDef generic params.
 
 let mf x = fst $ pF x (Just 0)
     mi x = fst $ pI x (Just 0)
+
+{-
+SynthDef params
+-}
+
+let amp = mf "amp"
+    ctf = mf "ctf"
+    detune = mf "detune"
+    freq = mf "freq"
+    lpcutoff = mf "lpcutoff"
+    lforate = mf "lforate"
+    lfo = mf "lfo"
+    numharm = mf "numharm"
+    ratio = mf "ratio"
+    rq = mf "rq"
+    sinfreq = mf "sinfreq"
