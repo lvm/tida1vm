@@ -43,7 +43,7 @@ RUN apt-get update \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
-    && wget https://github.com/tidalcycles/Tidal/archive/0.9-dev.zip -O $HOME/tidal-0.9.zip \
+    && wget https://github.com/lvm/Tidal/archive/0.9-dev.zip -O $HOME/tidal-0.9.zip \
     && wget https://github.com/tidalcycles/tidal-midi/archive/0.9-dev.zip -O $HOME/tidal-midi-0.9.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/cyberpunk-theme.el/master/cyberpunk-transparent-theme.el -O $HOME/.emacs.d/themes/cyberpunk-transparent-theme.el \
