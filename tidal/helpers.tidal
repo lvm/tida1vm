@@ -1,11 +1,9 @@
-import Data.Maybe
+-- import Data.Maybe
+-- import Sound.Tidal.Utils
 
-{-
-FUNX
--}
-
--- bgold's
-let maybeInd xs i | i < length xs = Just $ xs!!i
+let mute = const silence
+    -- bgold's
+    maybeInd xs i | i < length xs = Just $ xs!!i
                   | otherwise = Nothing
     chordate cs m n = map (+m) $ cs!!n
     unMaybe = (fromJust <$>) . filterValues isJust
@@ -22,42 +20,47 @@ let maybeInd xs i | i < length xs = Just $ xs!!i
     -- a new random number each cycle, looping after n cycles
     cyclerand n = Pattern $ \(s,e) -> [((s,e),(s,e),timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
     cycleirand m n = Pattern $ \(s,e) -> [((s,e),(s,e), floor $ (*m) $ timeToRand $ fromIntegral $ (floor $ sam s) `mod` n)]
-
--- anny's
-let bpm b = cps (b/60)
+    -- anny's
+    bpm b = cps (b/60)
     tmod s e = (# nudge (scale 0 s $ fmap (**e) saw1))
     tmod' s e = tmod (s*(1/(105/60))) e
     mt s d i = slow s $ tmod' 0.5 3 $ density d $ i
-
--- danielmkarlson's
-let runnow d p = do now <- getNow
+    -- danielmkarlson's
+    runnow d p = do now <- getNow
                     d $ (nextSam now) ~> p
-
-
--- based on slowspread :-)
-let randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
+    oneshot d p = runnow d $ seqP [(0, 1, p)]
+    -- based on slowspread :-)
+    randspread :: (a -> t -> Pattern b) -> [a] -> t -> Pattern b
     randspread f xs p = randcat $ map (\x -> f x p) xs
-
-
-{-
-SynthDef params
--}
-
-let (amp, _) = pF "amp" (Just 0)
-    (ctf, _) = pF "ctf" (Just 0)
-    (detune, _) = pF "detune" (Just 0)
-    (lpcutoff, _) = pF "lpcutoff" (Just 0)
-    (lforate, _) = pF "lforate" (Just 0)
-    (lfowidth, _) = pF "lfowidth" (Just 0)
-    (lfo, _) = pF "lfo" (Just 0)
-    (numharm, _) = pF "numharm" (Just 0)
-    (ratio, _) = pF "ratio" (Just 0)
-    (rq, rq_p) = pF "rq" (Just 0)
-    (sinfreq, _) = pF "sinfreq" (Just 0)
-
-{-
-SynthDef generic params.
--}
-
-let mf x = fst $ pF x (Just 0)
+    -- yaxu's
+    loopFirst p = splitQueries $ Pattern f
+      where f a@(s,e) = mapSnds' plus $ mapFsts' plus $ arc p (minus a)
+              where minus = mapArc (subtract (sam s))
+                    plus = mapArc (+ (sam s))
+    outside n = inside (1/n)
+    timeLoop n = outside n loopFirst
+    seqPLoop ps = timeLoop (maximum $ map (\(_,x,_) -> x) ps) $ seqP ps
+    --SynthDef generic params.
+    mf x = fst $ pF x (Just 0)
     mi x = fst $ pI x (Just 0)
+    -- SynthDef params
+    adsr = grp [attack_p, decay_p, sustain_p, release_p]
+    amp = mf "amp"
+    ctf = mf "ctf"
+    carp = mf "carPartial"
+    detune = mf "detune"
+    fmod = mf "fmod"
+    freq = mf "freq"
+    hctf = mf "hctf"
+    idx = mf "index"
+    lctf = mf "lctf"
+    lforate = mf "lforate"
+    lfo = mf "lfo"
+    modp = mf "modPartial"
+    mul = mf "mul"
+    numharm = mf "numharm"
+    ratio = mf "ratio"
+    rq = mf "rq"
+    sinfreq = mf "sinfreq"
+    slidefrom = mf "slidefrom"
+
