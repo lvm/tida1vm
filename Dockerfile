@@ -75,15 +75,11 @@ RUN cabal update \
     && unzip $HOME/tidal-0.9.zip -d $HOME \
     && cd $HOME/Tidal-0.9-dev \
     && cabal configure && cabal build && cabal install \
-    && unzip $HOME/tidal-scales.zip -d $HOME \
-    && cd $HOME/tidal-scales-master \
-    && cabal configure && cabal build && cabal install \
     && unzip $HOME/tidal-drum-patterns.zip -d $HOME \
     && cd $HOME/tidal-drum-patterns-master \
     && cabal configure && cabal build && cabal install \
     && cd $HOME \
     && rm -fr $HOME/tidal-drum-patterns-master $HOME/tidal-drum-patterns.zip \
-    && rm -fr $HOME/tidal-scales-master $HOME/tidal-scales.zip \
     && rm -fr $HOME/Tidal-0.9-dev $HOME/tidal-0.9.zip \
     && chown -Rh $USER:$USER -- $HOME
 
