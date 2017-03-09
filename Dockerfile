@@ -43,7 +43,6 @@ RUN apt-get update \
     && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
-    && wget https://github.com/tidalcycles/Tidal/archive/0.9-dev.zip -O $HOME/tidal-0.9.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el
 
@@ -69,12 +68,7 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install colour hashable hmt 'hosc > 0.13' \
-    mersenne-random-pure64 monad-loops \
-    'mtl >=2.1' parsec text 'websockets > 0.8' \
-    && unzip $HOME/tidal-0.9.zip -d $HOME \
-    && cd $HOME/Tidal-0.9-dev \
-    && cabal configure && cabal build && cabal install \
+    && cabal install 'tidal==0.9' \
     && unzip $HOME/tidal-drum-patterns.zip -d $HOME \
     && cd $HOME/tidal-drum-patterns-master \
     && cabal configure && cabal build && cabal install \
