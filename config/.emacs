@@ -1,14 +1,20 @@
 (require 'package)
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
 ("melpa-stable" . "http://stable.melpa.org/packages/")))))
 
+(add-to-list 'load-path "~/.elisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+(require 'centered-cursor-mode)
+(require 'haskell-mode)
+(require 'tidal)
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(global-centered-cursor-mode +1)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -31,17 +37,8 @@
 (setq scroll-step 1)
 (setq truncate-partial-width-windows nil)
 (menu-bar-mode -99) ;; no-x requires -99, x works with just -1
-
+;;(global-hl-line-mode 1)
 (add-hook 'isearch-update-post-hook 'redraw-display)
-
-(add-to-list 'load-path "~/.elisp")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-
-(require 'haskell-mode)
-(require 'tidal)
-
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
 
 (fset 'stidal
       "\C-c\C-s")
@@ -58,19 +55,20 @@
 (fset 'skillbuff
       "\C-xk")
 
-;;(find-file "~/livecode/helpers.tidal")
-;; (sleep-for 2)
-;; (execute-kbd-macro (symbol-function 'smarkall))
-;; (sleep-for 2)
-;; (execute-kbd-macro (symbol-function 'seval))
-;; (sleep-for 2)
-;; (execute-kbd-macro (symbol-function 'skillbuff))
-
-(find-file "~/livecode/init.tidal")
-
+(find-file "~/livecode/helpers.tidal")
 (execute-kbd-macro (symbol-function 'stidal))
 (sleep-for 2)
 (execute-kbd-macro (symbol-function 'sfocusother))
+(sleep-for 2)
+(execute-kbd-macro (symbol-function 'smarkall))
+(sleep-for 2)
+(execute-kbd-macro (symbol-function 'seval))
+(sleep-for 2)
+(execute-kbd-macro (symbol-function 'skillbuff))
+(find-file "~/livecode/init.tidal")
 
 (add-hook 'after-init-hook
-	        (lambda () (load-theme 'monochrome-transparent t)))
+	  (lambda ()
+	    (load-theme 'monochrome-transparent t)
+	    (kill-buffer "*scratch*")
+	    ))

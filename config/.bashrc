@@ -17,7 +17,7 @@ export LANG=C.UTF-8
 export HOME=/home/tidal
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
-export PS1="[tida1vm:\w] \\$ "
+export PS1="[BALC:\w] \\$ "
 export PS2='... '
 
 alias emacs="TERM=xterm-256color emacs"
@@ -28,4 +28,6 @@ bind "set show-all-if-ambiguous On" # Single tab completion
 bind Space:magic-space #auto expand ! variants upon space
 shopt -s cdspell # correct small spelling errors automagically
 
-[ -f $HOME/.bash_profile ] && source $HOME/.bash_profile
+if [ ! -z "$TERM" ]; then
+    cat ~/.motd
+fi

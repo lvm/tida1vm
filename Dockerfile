@@ -40,11 +40,12 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p $HOME \
-    && mkdir -p $HOME/.elisp \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
+    && mkdir -p $HOME/.emacs.d/lisp \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
-    && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el
+    && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el \
+    && wget https://www.emacswiki.org/emacs/download/centered-cursor-mode.el -O $HOME/.emacs.d/lisp/centered-cursor-mode.el
 
 ###
 #
@@ -52,11 +53,9 @@ RUN apt-get update \
 #
 ###
 COPY ["config/.bashrc", "$HOME/.bashrc"]
-COPY ["config/.bash_profile", "$HOME/.bash_profile"]
 COPY ["config/.motd", "$HOME/.motd"]
-COPY ["config/.tmux.conf", "$HOME/.tmux.conf"]
 COPY ["config/.emacs", "$HOME/.emacs"]
-COPY ["config/tidal.el", "$HOME/.elisp/tidal.el"]
+COPY ["config/tidal.el", "$HOME/.emacs.d/lisp/tidal.el"]
 COPY ["tidal/init.tidal", "$HOME/livecode/init.tidal"]
 COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
