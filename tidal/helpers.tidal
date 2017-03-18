@@ -1,6 +1,3 @@
--- import Data.Maybe
--- import Sound.Tidal.Utils
-
 let mute = const silence
     -- bgold's
     maybeInd xs i | i < length xs = Just $ xs!!i
@@ -63,4 +60,4 @@ let mute = const silence
     rq = mf "rq"
     sinfreq = mf "sinfreq"
     slidefrom = mf "slidefrom"
-
+    vib = mf "vib"
