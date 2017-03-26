@@ -50,7 +50,7 @@ Currently, there's a branch for:
 * :link: [Download](https://github.com/lvm/tida1vm/archive/superdirt.zip)
 * :whale: `docker pull lvm23/tida1vm:superdirt` 
 
-#### TidalCycles 0.9 + SuperDirt (:see_no_evil: DEVELOPMENT BRANCH :see_no_evil:)
+#### TidalCycles 0.9 + SuperDirt
 
 * :seedling: [branch](https://github.com/lvm/tida1vm/tree/0.9)
 * :link: [Download](https://github.com/lvm/tida1vm/archive/0.9.zip)
@@ -58,19 +58,19 @@ Currently, there's a branch for:
 
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
-So, let's say, you want to run the `0.8` version, simply:
+So, let's say, you want to run the `0.9` version, simply:
 
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ git checkout 0.8
-$ docker build -t tida1vm-0.8 .
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm tida1vm-0.8
+$ git checkout 0.9
+$ docker build -t tida1vm-0.9 .
+$ docker run -ti --rm --net=host --name tida1vm lvm23/tida1vm:0.9
 ```
 or just:
 ```bash
-$ docker pull lvm23/tida1vm:0.8
-$ docker run -ti --rm --privileged -v /dev/bus/usb:/dev/bus/usb --name tida1vm lvm23/tida1vm:0.8
+$ docker pull lvm23/tida1vm:0.9
+$ docker run -ti --rm --net=host --name tida1vm lvm23/tida1vm:0.9
 ```
 
 ## MIDI Ports
