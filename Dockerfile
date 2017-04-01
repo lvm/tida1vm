@@ -43,6 +43,7 @@ RUN apt-get update \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
     && mkdir -p $HOME/.emacs.d/lisp \
+    && wget https://github.com/tidalcycles/Tidal/archive/1.0-dev.zip -O $HOME/tidal-0.9.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el \
     && wget https://www.emacswiki.org/emacs/download/centered-cursor-mode.el -O $HOME/.emacs.d/lisp/centered-cursor-mode.el
@@ -67,13 +68,18 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install 'tidal==0.9' \
+    && cabal install colour hashable hmt 'hosc > 0.13' \
+        mersenne-random-pure64 monad-loops \
+        'mtl >=2.1' parsec text 'websockets > 0.8' \
+    && unzip $HOME/tidal-1.0.zip -d $HOME \
+    && cd $HOME/Tidal-1.0-dev \
+    && cabal configure && cabal build && cabal install \
     && unzip $HOME/tidal-drum-patterns.zip -d $HOME \
     && cd $HOME/tidal-drum-patterns-master \
     && cabal configure && cabal build && cabal install \
     && cd $HOME \
     && rm -fr $HOME/tidal-drum-patterns-master $HOME/tidal-drum-patterns.zip \
-    && rm -fr $HOME/Tidal-0.9-dev $HOME/tidal-0.9.zip \
+    && rm -fr $HOME/Tidal-0.9-dev $HOME/tidal-1.0.zip \
     && chown -Rh $USER:$USER -- $HOME
 
 
