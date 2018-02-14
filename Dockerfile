@@ -68,9 +68,10 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install colour hashable hmt 'hosc > 0.13' \
+    && cabal install colour hashable hmt 'hosc >= 0.16' \
         mersenne-random-pure64 monad-loops \
         'mtl >=2.1' parsec text 'websockets > 0.8' \
+        containers time safe \
     && unzip $HOME/tidal-1.0.zip -d $HOME \
     && cd $HOME/Tidal-1.0-dev \
     && cabal configure && cabal build && cabal install \
