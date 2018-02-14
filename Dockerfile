@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Mauro <mauro@sdf.org>
 
 ###
@@ -14,14 +14,6 @@ ENV PATH $PATH:$HOME/bin
 
 ENV DEBIAN_FRONTEND noninteractive
 
-####
-#
-# Add backports.
-# `ghc` is kinda old in Jessie, luckily someone backported it.
-#
-##
-COPY ["config/etc/apt/sources.list.d/backports.list", "/etc/apt/sources.list.d/backports.list"]
-
 ###
 #
 # Install dependencies &&
@@ -34,9 +26,8 @@ RUN apt-get update \
     emacs24-nox haskell-mode \
     zlib1g-dev liblo7 libasound2-dev \
     cabal-install wget unzip \
-    ca-certificates \
+    ca-certificates ghc \
     --no-install-recommends \
-    && apt-get install -yt jessie-backports ghc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p $HOME \
