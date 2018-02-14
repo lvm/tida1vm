@@ -43,7 +43,7 @@ RUN apt-get update \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
     && mkdir -p $HOME/.emacs.d/lisp \
-    && wget https://github.com/tidalcycles/Tidal/archive/1.0-dev.zip -O $HOME/tidal-0.9.zip \
+    && wget https://github.com/tidalcycles/Tidal/archive/1.0-dev.zip -O $HOME/tidal-1.0.zip \
     && wget https://github.com/lvm/tidal-drum-patterns/archive/master.zip -O $HOME/tidal-drum-patterns.zip \
     && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el \
     && wget https://www.emacswiki.org/emacs/download/centered-cursor-mode.el -O $HOME/.emacs.d/lisp/centered-cursor-mode.el
