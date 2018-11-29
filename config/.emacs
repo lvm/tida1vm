@@ -41,7 +41,7 @@
       "\C-c\C-s")
 (fset 'sfocusother
       "\C-xo")
-(find-file "~/livecode/helpers.tidal")
+(find-file "~/livecode/init.tidal")
 (execute-kbd-macro (symbol-function 'stidal))
 (sleep-for 2)
 (execute-kbd-macro (symbol-function 'sfocusother))
