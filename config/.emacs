@@ -37,6 +37,15 @@
 (menu-bar-mode -99) ;; no-x requires -99, x works with just -1
 ;;(global-hl-line-mode 1)
 (add-hook 'isearch-update-post-hook 'redraw-display)
+(fset 'stidal
+      "\C-c\C-s")
+(fset 'sfocusother
+      "\C-xo")
+(find-file "~/livecode/helpers.tidal")
+(execute-kbd-macro (symbol-function 'stidal))
+(sleep-for 2)
+(execute-kbd-macro (symbol-function 'sfocusother))
+(sleep-for 2)
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (load-theme 'monochrome-transparent t)
