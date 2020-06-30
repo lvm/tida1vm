@@ -34,7 +34,6 @@ RUN apt-get update \
     && mkdir -p $HOME/livecode \
     && mkdir -p $HOME/.emacs.d/themes \
     && mkdir -p $HOME/.emacs.d/lisp \
-    && git clone https://github.com/tidalcycles/Tidal.git $HOME/Tidal-1.0 \
     && wget https://raw.githubusercontent.com/lvm/monochrome-theme.el/master/monochrome-transparent-theme.el -O $HOME/.emacs.d/themes/monochrome-transparent-theme.el
 
 ###
@@ -57,13 +56,7 @@ COPY ["tidal/helpers.tidal", "$HOME/livecode/helpers.tidal"]
 
 
 RUN cabal update \
-    && cabal install colour hashable hmt 'hosc >= 0.16' \
-        mersenne-random-pure64 monad-loops \
-        'mtl >=2.1' parsec text 'websockets > 0.8' \
-        containers time safe network vector \
-	mwc-random random 'semigroups >= 0.18' \
-    && cd $HOME/Tidal-1.0 \
-    && cabal configure && cabal build && cabal install \
+    && cabal install tidal-1.6.1 \
     && cd $HOME \
     && chown -Rh $USER:$USER -- $HOME
 

@@ -40,6 +40,7 @@
 (require 'find-lisp)
 (require 'pulse)
 (require 'haskell-mode)
+(require 'subr-x)
 
 (defvar tidal-buffer
   "*tidal*"
@@ -54,9 +55,30 @@
   "*The version of tidal interpreter as a string.")
 
 (defvar tidal-interpreter-arguments
-  (list "-XOverloadedStrings"
-        )
+  ()
   "*Arguments to the haskell interpreter (default=none).")
+
+(defvar tidal-boot-script-path
+  (let ((filepath
+         (cond
+          ((string-equal system-type "windows-nt")
+           '(("path" . "echo off && for /f %a in ('ghc-pkg latest tidal') do (for /f \"tokens=2\" %i in ('ghc-pkg describe %a ^| findstr data-dir') do (echo %i))")
+             ("separator" . "\\")
+             ))
+          ((or (string-equal system-type "darwin") (string-equal system-type "gnu/linux"))
+           '(("path" . "ghc-pkg field tidal data-dir")
+             ("separator" . "/")
+             ))
+          )
+         ))
+    (concat
+     (string-trim (cadr (split-string
+                         (shell-command-to-string (cdr (assoc "path" filepath))) ":")))
+     (cdr (assoc "separator" filepath))
+     "BootTidal.hs")
+    )
+  "*Full path to BootTidal.hs (inferred by introspecting ghc-pkg package db)."
+)
 
 (defvar tidal-literate-p
   t
@@ -88,58 +110,7 @@
      nil
      tidal-interpreter-arguments)
     (tidal-see-output))
-  (tidal-send-string ":set prompt \"\"")
-  (if (string< tidal-interpreter-version "8.2.0")
-      (tidal-send-string ":set prompt2 \"\"")
-    (tidal-send-string ":set prompt-cont \"\""))
-  (tidal-send-string "import Sound.Tidal.Context
-
-tidal <- startTidal superdirtTarget defaultConfig
-
-let p = streamReplace tidal
-    hush = streamHush tidal
-    list = streamList tidal
-    mute = streamMute tidal
-    unmute = streamUnmute tidal
-    solo = streamSolo tidal
-    unsolo = streamUnsolo tidal
-    once = streamOnce tidal False
-    asap = streamOnce tidal True
-    setcps = asap . cps
-    xfade = transition tidal (Sound.Tidal.Transition.xfadeIn 4)
-    xfadeIn t = transition tidal (Sound.Tidal.Transition.xfadeIn t)
-    histpan t = transition tidal (Sound.Tidal.Transition.histpan t)
-    wait t = transition tidal (Sound.Tidal.Transition.wait t)
-    waitT f t = transition tidal (Sound.Tidal.Transition.waitT f t)
-    jump = transition tidal (Sound.Tidal.Transition.jump)
-    jumpIn t = transition tidal (Sound.Tidal.Transition.jumpIn t)
-    jumpIn' t = transition tidal (Sound.Tidal.Transition.jumpIn' t)
-    jumpMod t = transition tidal (Sound.Tidal.Transition.jumpMod t)
-    mortal lifespan release = transition tidal (Sound.Tidal.Transition.mortal lifespan release)
-    interpolate = transition tidal (Sound.Tidal.Transition.interpolate)
-    interpolateIn t = transition tidal (Sound.Tidal.Transition.interpolateIn t)
-    clutch = transition tidal (Sound.Tidal.Transition.clutch)
-    clutchIn t = transition tidal (Sound.Tidal.Transition.clutchIn t)
-    anticipate = transition tidal (Sound.Tidal.Transition.anticipate)
-    anticipateIn t = transition tidal (Sound.Tidal.Transition.anticipateIn t)
-    d1 = p \"1\"
-    d2 = p \"2\"
-    d3 = p \"3\"
-    d4 = p \"4\"
-    d5 = p \"5\"
-    d6 = p \"6\"
-    d7 = p \"7\"
-    d8 = p \"8\"
-    d9 = p \"9\"
-    d10 = p \"10\"
-    d11 = p \"11\"
-    d12 = p \"12\"
-    d13 = p \"13\"
-    d14 = p \"14\"
-    d15 = p \"15\"
-    d16 = p \"16\"
-  ")
-  (tidal-send-string ":set prompt \"tidal> \"")
+  (tidal-send-string (concat ":script " tidal-boot-script-path))
 )
 
 (defun tidal-see-output ()

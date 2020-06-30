@@ -9,9 +9,9 @@ Based on the work of [DoubleDensity's Tidebox](https://github.com/DoubleDensity/
 ```bash  
 $ git clone https://github.com/lvm/tida1vm
 $ cd tida1vm
-$ git checkout 1.0
-$ docker build -t tidal-1.0 .
-$ docker run -ti --rm --name tidal-1 tidal-1.0
+$ git checkout 1.6.1
+$ docker build -t tidal-1.6.1 .
+$ docker run -ti --rm --name tidal-1 tidal-1.6.1
 ```
 
 

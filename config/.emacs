@@ -19,6 +19,8 @@
 (defconst query-replace-highlight t)
 (defconst search-highlight t)
 (setq ecb-tip-of-the-day nil)
+(global-set-key (kbd "M-<down>") 'shrink-window)
+(global-set-key (kbd "M-<up>") 'enlarge-window)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-r" ;; reload .emacs
   '(lambda () (interactive) (load-file "~/.emacs")))
