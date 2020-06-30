@@ -56,6 +56,18 @@ Currently, there's a branch for:
 * :link: [Download](https://github.com/lvm/tida1vm/archive/0.9.zip)
 * :whale: `docker pull lvm23/tida1vm:0.9` 
 
+#### TidalCycles 1.0
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/1.0)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/1.0.zip)
+* :whale: `docker pull lvm23/tida1vm:1.0` 
+
+#### TidalCycles 1.6.1
+
+* :seedling: [branch](https://github.com/lvm/tida1vm/tree/1.6.1)
+* :link: [Download](https://github.com/lvm/tida1vm/archive/1.6.1.zip)
+* :whale: `docker pull lvm23/tida1vm:1.6.1` 
+
 All of them are equally stable (ie: run at your own risk :neckbeard:)
 
 So, let's say, you want to run the `0.9` version, simply:
